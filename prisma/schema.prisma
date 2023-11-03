@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Livro {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  Autor   String
+  dataPub String
+  Referencias Referencia[] //
+}
+
+model Referencia {
+  id                   String  @id @default(auto()) @map("_id") @db.ObjectId
+  LivroId              String  @db.ObjectId
+  ReferenciaDaFonte    String
+  DatacaoDaReferencia  String
+  Campos              Campos[]
+  Livro               Livro    @relation(fields: [LivroId], references: [id]) 
+}
+
+model Campos {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  BastardaLegitima  String
+  LinhagemFamiliar  String
+  NomeReligioso     String
+  Idade             String
+  DataDeNascimento  String
+  TempoDeNoviciado  String
+  LocalDeBatismo    String
+  Pai               String
+  AvoPaterno        String
+  AvoPaterna        String
+  Mae               String
+  AvoMaterno        String
+  AvoMaterna        String
+  FreirasParentesco String
+  Irmaos            String[]
+  Observacoes       String
+  ReferenciaId      String @db.ObjectId
+  Referencia        Referencia @relation(fields: [ReferenciaId], references: [id])
+  Monja             Monja? @relation(fields: [ReferenciaId], references: [id])
+}
+
+model Monja {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  Nome   String
+  Dados  Campos[]
+}
