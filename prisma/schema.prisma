@@ -7,47 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// schema.prisma
+
 model Livro {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  Autor   String
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  autor   String
   dataPub String
-  Referencias Referencia[] //
+  referencias Referencia[]
 }
 
 model Referencia {
-  id                   String  @id @default(auto()) @map("_id") @db.ObjectId
-  LivroId              String  @db.ObjectId
-  ReferenciaDaFonte    String
-  DatacaoDaReferencia  String
-  Campos              Campos[]
-  Livro               Livro    @relation(fields: [LivroId], references: [id]) 
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  livro             Livro  @relation(fields: [livroId], references: [id])
+  livroId           String @db.ObjectId
+  referencia String
+  datacaoReferencia String
+  Campos            Campo[]
 }
 
-model Campos {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  BastardaLegitima  String
-  LinhagemFamiliar  String
-  NomeReligioso     String
-  Idade             String
-  DataDeNascimento  String
-  TempoDeNoviciado  String
-  LocalDeBatismo    String
-  Pai               String
-  AvoPaterno        String
-  AvoPaterna        String
-  Mae               String
-  AvoMaterno        String
-  AvoMaterna        String
+model Campo {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  referencia        Referencia @relation(fields: [referenciaId], references: [id])
+  referenciaId      String @db.ObjectId
+  filiacao  String //Bastarda ou Legitima
+  linhagemFamiliar String
+  nomeReligioso     String
+  idade             String
+  dataNascimento  String
+  tempoNoviciado  String
+  naturalidadeBatismo    String
+  pai               String
+  avoPaterno        String
+  avoParterna        String
+  mae               String
+  avoMaterno        String
+  avoMaterna        String
   FreirasParentesco String
-  Irmaos            String[]
-  Observacoes       String
-  ReferenciaId      String @db.ObjectId
-  Referencia        Referencia @relation(fields: [ReferenciaId], references: [id])
-  Monja             Monja? @relation(fields: [ReferenciaId], references: [id])
+  irmaos            String[]
+  observacoes       String
+  Monja             Monja?   @relation(fields: [monjaId], references: [id]) // Relação opcional
+  monjaId           String   @db.ObjectId
 }
 
 model Monja {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  Nome   String
-  Dados  Campos[]
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  Campos Campo[]
 }

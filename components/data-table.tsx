@@ -2,6 +2,8 @@
 
 import {
   ColumnDef,
+
+  getFilteredRowModel,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -16,36 +18,57 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Textarea } from "./ui/textarea"
-import { Campos } from "@prisma/client"
+
 import { Button } from "./ui/button"
+import { Input } from "@/components/ui/input"
+
 import {   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue, } from "./ui/select"
 import { DataTableViewOptions } from "./data-table-view-options"
+import { useState } from "react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [filtering, setFiltering] = useState("");
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-  })
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      globalFilter: filtering,
+    },
+    onGlobalFilterChange: setFiltering,
+  });
 
+  
   return (
     <>
     <div className="rounded-md border">
       <DataTableViewOptions table={table} />
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter "
+          value={filtering}
+          onChange={(e) => {setFiltering(e.target.value);
+        }}
+          className="max-w-sm"
+        />
+        
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -76,7 +99,6 @@ export function DataTable<TData, TValue>({
                 {row.getVisibleCells().map((cell) => (
                   <>
                     <TableCell key={cell.id}>
-                      
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   </>
@@ -143,4 +165,3 @@ export function DataTable<TData, TValue>({
     </>
   )
 }
-3
