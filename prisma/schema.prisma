@@ -11,6 +11,7 @@ datasource db {
 
 model Livro {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
+  nome String
   autor   String
   dataPub String
   referencias Referencia[]
@@ -38,19 +39,19 @@ model Campo {
   naturalidadeBatismo    String
   pai               String
   avoPaterno        String
-  avoParterna        String
+  avoPaterna        String
   mae               String
   avoMaterno        String
   avoMaterna        String
-  FreirasParentesco String
+  freirasParentesco String
   irmaos            String[]
   observacoes       String
-  Monja             Monja?   @relation(fields: [monjaId], references: [id]) // Relação opcional
+  monja             Monja?   @relation(fields: [monjaId], references: [id]) // Relação opcional
   monjaId           String   @db.ObjectId
 }
 
 model Monja {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   nome  String
-  Campos Campo[]
+  campos Campo[]
 }

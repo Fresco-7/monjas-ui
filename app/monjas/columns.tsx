@@ -65,12 +65,6 @@ export const columns: ColumnDef<Monja>[] = [
         enableSorting: false,
         enableHiding: false,
       },
-
-    {
-        accessorKey: "id",
-        header: "Monja Id",
-        
-    },
     {
         accessorKey: "nome",
         header: "Nome",
@@ -103,7 +97,7 @@ export const columns: ColumnDef<Monja>[] = [
             return res;
         },
         id : "Linhagem Familiar"
-    }, 
+    },
     {
         accessorKey: "campos",
         header: "Nome Religioso",
@@ -148,7 +142,7 @@ export const columns: ColumnDef<Monja>[] = [
         },
         id : "Data de Nascimento"
 
-    },  
+    },
     {
         accessorKey: "campos",
         header: "Local de Batismo / Naturalidade",
