@@ -12,20 +12,18 @@ async function getData(): Promise<Monja[]> {
 }
 
 export default async function HomePage() {
-  const data = await getData()
 
-   
+  const data = await getData()
+  
   return (
   <>
-    <div className="flex p-4 justify-center items-center ">
-        <Button>Criar Monja</Button>
-        <div className="ml-3"><Button>Criar Livro/Referencia</Button></div>
-    </div>
-    <div className="p-10">
-      <DataTable columns={columns} data={data} />
-    </div>
-    
-
+      <div className="flex p-4 justify-center items-center ">
+          <Button>Criar Monja</Button>
+          <div className="ml-3"><Button>Criar Livro/Referencia</Button></div>
+      </div>
+      <div className="p-10">
+        <DataTable columns={columns} data={data} />
+      </div>
     </>
 
   )

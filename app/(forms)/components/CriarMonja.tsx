@@ -15,14 +15,20 @@ import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { Livro } from '@prisma/client';
+import {SelectLivro} from './SelectLivro';
 
 const CriarMonja = () => {
-  
-  const { data, isLoading } = useQuery<Livro[]>({
-    queryKey : ["livros"],
-    queryFn : () => fetch('/api/get_livros').then((res) => res.json()),
-  });
 
+  const [selectedLivro, setSelectedLivro] = useState(''); // Initialize with an empty string or a default value
+  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
+  const {data, isLoading, isError} = useQuery({
+    queryKey: ['books'],
+    queryFn : async () => {
+        const {data} = await axios.get('/api/get_livros');
+        return data.books as Livro []
+    }
+
+  })
 
   const [formData, setFormData] = useState<criarMonjaFrom>({
     idLivro: '', 
@@ -44,14 +50,16 @@ const CriarMonja = () => {
     avoMaterna: '',
     freirasParentesco: '',
     observacoes: '',
+    irmaos: '',
   });
 
   const handleForm = async () => {
     try{
+      setFormData({ ...formData, idLivro: selectedLivro});
+      console.log(formData);
       await axios.post('/api/criar_monja', {"data" : formData} );
       }catch (error){
         if (axios.isAxiosError(error)) {
-
           const axiosError = error as AxiosError;
           if (axiosError.response) {
             const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
@@ -60,21 +68,39 @@ const CriarMonja = () => {
         }
       }
     }
-
+    if(isLoading){
+      return(
+        <>
+          <div>
+            <p>Loading ...</p>
+          </div>
+        </>
+      )
+    }
+    {console.log(data)}
   return (
     <>
     <Card className='w-1/2 h-relative'>
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Criar Monja</CardTitle>
       </CardHeader>
-        <CardContent className='grid grid-cols-2 gap-4 mt-2'>
-        <div className="flex flex-col space-y-1.5">
-              {data?.map((livro) => (
-                <p>{livro.nome}</p>
-              ))}
-                <Label >Id Livro</Label>
-                <Textarea value={formData.idLivro} onChange={(e) => setFormData({ ...formData, idLivro: e.target.value })} />        
-          </div>
+        <CardContent className='grid grid-cols-2 gap-4 mt-2 '>
+        <div className="flex flex-col space-y-1.5 justify-center items-left col-span-2 mb-4">
+          
+          {data ? data.length != 0 ? (
+          <><div className='flex justify-center'>
+              <SelectLivro livros={data} onLivroSelect={setSelectedLivro}/>
+            </div>
+          </>) 
+          : (
+            <><div className='flex items-center justify-center p-4'>
+                <span className='text-primary/80 text-xl sm:text-md'>Nenhum livro, crie um livro <span className='ml-1 text-primary/80 text-xl sm:text-md underline hover:cursor-pointer hover:text-primary'>aqui</span> </span>
+              </div>
+            </>
+          ) 
+          :(<p>Livros indisponiveis crie um</p>)}
+              
+       </div>
           <div className="flex flex-col space-y-1.5">
                 <Label >Referencia</Label>
                 <Textarea value={formData.referencia} onChange={(e) => setFormData({ ...formData, referencia: e.target.value })} />        
@@ -143,6 +169,10 @@ const CriarMonja = () => {
                 <Label >Freiras, Parentesco</Label>
                 <Textarea value={formData.freirasParentesco} onChange={(e) => setFormData({ ...formData, freirasParentesco: e.target.value })} />        
             </div>
+            <div className="flex flex-col space-y-1.5">
+                <Label>Irmãos</Label>
+                <Textarea value={formData.irmaos} onChange={(e) => setFormData({ ...formData, irmaos: e.target.value })} />        
+            </div>
             {/* Implementar feature de adicionar irmaos */}
             <div className="flex flex-col col-span-2 space-y-1.5">
                 <Label>Observações</Label>
@@ -150,7 +180,7 @@ const CriarMonja = () => {
             </div>
         </CardContent>
       <CardFooter>
-        <Button className="w-full" onClick={handleForm}>Atualizar monja</Button>
+        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Atualizar monja</Button>
       </CardFooter>
     </Card>
     </>

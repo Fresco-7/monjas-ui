@@ -1,11 +1,10 @@
 import prismadb from '@/lib/prismadb';
-import { json } from 'stream/consumers';
+import { NextResponse } from 'next/server';
 
-export async function GET(req: Request) {
+export async function GET() {
     try{
         const books = await prismadb.livro.findMany();
-        return Response.json( {livros : books} ,{status : 200})
-
+        return NextResponse.json({books});
     }catch (error){
         console.error(error);
     }

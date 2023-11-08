@@ -1,10 +1,10 @@
 import prismadb from '@/lib/prismadb';
+import { Campo } from '@prisma/client';
 
 export async function POST(req: Request) {
 
-    const data = await req.json() as criarMonjaFrom;
-
-
+    const dataJson = await req.json();
+    const data = dataJson.data as criarMonjaFrom
     try {
         const existingMonja = await prismadb.monja.findFirst({
             where : {
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
         const referenciaModal = await prismadb.referencia.create({
             data : {
-                referencia : data.referencia,
+                nrFolio : data.referencia,
                 datacaoReferencia : data.datacaoReferencia,
                 livro : {
                     connect : {
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         })
 
         const monja = await prismadb.monja.create({
-            data : { nome : data.nome}
+            data : { nome : data.nome, camposIds: []}
         });
 
         const campo = await prismadb.campo.create({
@@ -59,6 +59,7 @@ export async function POST(req: Request) {
                 dataNascimento : data.dataNascimento,
                 tempoNoviciado : data.tempoNoviciado,
                 naturalidadeBatismo : data.naturalidadeBatismo,
+                irmaos : data.irmaos,
                 referencia : {
                     connect : {
                         id : referenciaModal?.id
@@ -85,14 +86,27 @@ export async function POST(req: Request) {
             }
         });
         
-        
         // Put the campo id in campos Array at monja.
+        console.log(campo.id);
+        console.log(monja.id);
+        console.log(data);
 
+        await prismadb.monja.update({
+            where: {
+                id: monja.id,
+            },
+            data: {
+                camposIds: {
+                    push: campo.id
+                }
+            },
+        });
+        
+        
     }catch(error){
         return new Response(JSON.stringify(`Algo correu mal: ${error}`) ,{status: 404});
     }
 
-    
         
     return new Response(JSON.stringify("Monja criada com sucesso"), {status: 200});
 }

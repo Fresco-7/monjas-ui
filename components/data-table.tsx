@@ -58,10 +58,10 @@ export function DataTable<TData, TValue>({
   return (
     <>
     <div className="relative flex flex-col ">
-    <div className="flex p-4 items-center space-x-5 lg:justify-between justify-center" >
+      <div className="flex p-4 items-center space-x-5 lg:justify-between justify-center" >
           <Input placeholder="Filtro" value={filtering} onChange={(e) => {setFiltering(e.target.value);}}className="max-w-sm sm"/>
           <DataTableViewOptions table={table} />
-        </div>
+      </div>
       <div className="block w-full overflow-x-auto border rounded-xl shadow-xl">
         <Table>
         <TableHeader>
@@ -111,7 +111,8 @@ export function DataTable<TData, TValue>({
               )}
             </TableBody>
         </Table>
-        <div className="flex items-center justify-end space-x-2 p-4">
+      </div>
+      <div className="flex items-center justify-end space-x-2 p-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} de {" "}
             {table.getFilteredRowModel().rows.length} linha(s) selecionadas.
@@ -156,7 +157,6 @@ export function DataTable<TData, TValue>({
             Próxima
           </Button>
         </div>
-      </div>
     </div>
     </>
   )

@@ -5,6 +5,7 @@ declare global{
         var prismadb: PrismaClient
     }
     interface criarMonjaFrom {
+        irmaos : string;
         nome: string;
         filiacao: string;
         linhagemFamiliar: string;

@@ -16,7 +16,8 @@
     "avoMaterno": "AvoMaterno",
     "avoMaterna": "AvoMaterna",
     "freirasParentesco": "FreirasParentesco",
-    "observacoes": "Observacoes"
+    "observacoes": "Observacoes",
+    "irmaos" : "Imaos"
   },
   {
     "id": "2",
@@ -35,7 +36,8 @@
     "avoMaterno": "AvoMaterno 2",
     "avoMaterna": "AvoMaterna 2",
     "freirasParentesco": "FreirasParentesco 2",
-    "observacoes": "Observacoes 2"
+    "observacoes": "Observacoes 2",
+    "irmaos" : "Imaos"
   },
   {
     "id": "3",
@@ -54,7 +56,8 @@
     "avoMaterno": "AvoMaterno 3",
     "avoMaterna": "AvoMaterna 3",
     "freirasParentesco": "FreirasParentesco 3",
-    "observacoes": "Observacoes 3"
+    "observacoes": "Observacoes 3",
+    "irmaos" : "Imaos"
   },
   {
     "id": "4",
@@ -73,7 +76,8 @@
     "avoMaterno": "AvoMaterno 4",
     "avoMaterna": "AvoMaterna 4",
     "freirasParentesco": "FreirasParentesco 4",
-    "observacoes": "Observacoes 4"
+    "observacoes": "Observacoes 4",
+    "irmaos" : "Imaos"
   },
   {
     "id": "5",
@@ -92,7 +96,8 @@
     "avoMaterno": "AvoMaterno 5",
     "avoMaterna": "AvoMaterna 5",
     "freirasParentesco": "FreirasParentesco 5",
-    "observacoes": "Observacoes 5"
+    "observacoes": "Observacoes 5",
+    "irmaos" : "Imaos"
   },
   {
     "id": "6",
@@ -149,7 +154,8 @@
     "avoMaterno": "AvoMaterno 8",
     "avoMaterna": "AvoMaterna 8",
     "freirasParentesco": "FreirasParentesco 8",
-    "observacoes": "Observacoes 8"
+    "observacoes": "Observacoes 8",
+    "irmaos" : "Imaos"
   },
   {
     "id": "9",
@@ -168,7 +174,8 @@
     "avoMaterno": "AvoMaterno 9",
     "avoMaterna": "AvoMaterna 9",
     "freirasParentesco": "FreirasParentesco 9",
-    "observacoes": "Observacoes 9"
+    "observacoes": "Observacoes 9",
+    "irmaos" : "Imaos"
   },
   {
     "id": "10",

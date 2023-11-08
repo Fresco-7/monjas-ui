@@ -21,7 +21,7 @@ model Referencia {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   livro             Livro  @relation(fields: [livroId], references: [id])
   livroId           String @db.ObjectId
-  referencia String
+  nrFolio String
   datacaoReferencia String
   Campos            Campo[]
 }
@@ -44,7 +44,7 @@ model Campo {
   avoMaterno        String
   avoMaterna        String
   freirasParentesco String
-  irmaos            String[]
+  irmaos            String
   observacoes       String
   monja             Monja?   @relation(fields: [monjaId], references: [id]) // Relação opcional
   monjaId           String   @db.ObjectId
@@ -53,5 +53,6 @@ model Campo {
 model Monja {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   nome  String
+  camposIds String[] @db.ObjectId
   campos Campo[]
 }
