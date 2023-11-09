@@ -1,10 +1,9 @@
 import prismadb from '@/lib/prismadb';
-import { Campo } from '@prisma/client';
 
 export async function POST(req: Request) {
-
     const dataJson = await req.json();
-    const data = dataJson.data as criarMonjaFrom
+    const idLivro = dataJson.idLivro;
+    const data = dataJson.data as criarMonjaFrom;
     try {
         const existingMonja = await prismadb.monja.findFirst({
             where : {
@@ -18,7 +17,7 @@ export async function POST(req: Request) {
         
         const livro = await prismadb.livro.findFirst({
             where : {
-                id : data.idLivro
+                id : idLivro
             }
         })
         
@@ -86,11 +85,6 @@ export async function POST(req: Request) {
             }
         });
         
-        // Put the campo id in campos Array at monja.
-        console.log(campo.id);
-        console.log(monja.id);
-        console.log(data);
-
         await prismadb.monja.update({
             where: {
                 id: monja.id,
@@ -106,7 +100,5 @@ export async function POST(req: Request) {
     }catch(error){
         return new Response(JSON.stringify(`Algo correu mal: ${error}`) ,{status: 404});
     }
-
-        
     return new Response(JSON.stringify("Monja criada com sucesso"), {status: 200});
 }

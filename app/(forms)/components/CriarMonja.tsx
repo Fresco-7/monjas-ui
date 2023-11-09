@@ -16,9 +16,10 @@ import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { Livro } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
+import { useRouter } from 'next/router';
 
 const CriarMonja = () => {
-
+    
   const [selectedLivro, setSelectedLivro] = useState(''); // Initialize with an empty string or a default value
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
   const {data, isLoading, isError} = useQuery({
@@ -31,7 +32,6 @@ const CriarMonja = () => {
   })
 
   const [formData, setFormData] = useState<criarMonjaFrom>({
-    idLivro: '', 
     referencia: '', 
     datacaoReferencia: '',
     nome: '',
@@ -55,19 +55,18 @@ const CriarMonja = () => {
 
   const handleForm = async () => {
     try{
-      setFormData({ ...formData, idLivro: selectedLivro});
-      console.log(formData);
-      await axios.post('/api/criar_monja', {"data" : formData} );
-      }catch (error){
-        if (axios.isAxiosError(error)) {
-          const axiosError = error as AxiosError;
-          if (axiosError.response) {
-            const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-          }
-          toast.error("Tente de novo");
-        }
+      const res = await axios.post('/api/criar_monja', {"data" : formData, "idLivro" : selectedLivro} );
+      toast.success("Monja criada");
+    }catch (error){
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+      }
+      toast.error("Tente de novo");
       }
     }
+  }
     if(isLoading){
       return(
         <>

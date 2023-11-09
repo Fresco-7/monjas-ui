@@ -22,7 +22,6 @@ declare global{
         avoMaterna : string;
         freirasParentesco: string;
         observacoes: string;
-        idLivro : string;
         referencia : string;
         datacaoReferencia : string;
     }
