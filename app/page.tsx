@@ -1,27 +1,41 @@
-import { Monja, columns } from "@/app/monjas/columns2"
+"use client"
+import { columns } from "@/app/columns"
 import { DataTable } from "@/components/data-table"
 import { Button } from "@/components/ui/button";
-import { promises as fs } from 'fs';
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useQuery } from "react-query";
 
-async function getData(): Promise<Monja[]> {
 
-  const file = await fs.readFile(process.cwd() + '/app/data2.json', 'utf8');
-  const datajs = JSON.parse(file);
-  return datajs
-}
+const HomePage = () => {
+  const router = useRouter();
 
-export default async function HomePage() {
-  const datajs = await getData()
+  const {data, isLoading, isError} = useQuery({
+    queryKey: ['tabelaRow'],
+    queryFn : async () => {
+      console.log(1);
+        const {data} = await axios.get('/api/get_monjas');
+        return data as tabelaRow []
+    }
+  })
   
   return (
-  <>
+    <>
+      <div className="flex p-4 justify-center items-center">
+        <span className="font-bold text-5xl">Monjas</span>
+      </div>
       <div className="flex p-4 justify-center items-center ">
-          <Button>Criar Monja</Button>
-          <div className="ml-3"><Button>Criar Livro/Referencia</Button></div>
+          <Button onClick={() =>{
+            router.push('/criar_monja');
+          }}>Criar Monja</Button>
+          <div className="ml-3"><Button onClick={() =>{
+            router.push('/criar_livro');
+          }}>Criar Livro</Button></div>
       </div>
       <div className="p-10">
-        <DataTable columns={columns} data={datajs} />
+        <DataTable columns={columns} data={data || []} />
       </div>
     </>
   )
 }
+export default HomePage;

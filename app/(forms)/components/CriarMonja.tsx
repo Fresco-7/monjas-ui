@@ -28,7 +28,6 @@ const CriarMonja = () => {
         const {data} = await axios.get('/api/get_livros');
         return data.books as Livro []
     }
-
   })
 
   const [formData, setFormData] = useState<criarMonjaFrom>({
@@ -70,13 +69,12 @@ const CriarMonja = () => {
     if(isLoading){
       return(
         <>
-          <div>
-            <p>Loading ...</p>
-          </div>
+        <div className="flex w-full h-screen justify-center">
+          <p>Loading ...</p>
+        </div>
         </>
       )
     }
-    {console.log(data)}
   return (
     <>
     <Card className='w-1/2 h-relative'>

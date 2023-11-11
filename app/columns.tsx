@@ -13,31 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import toast from "react-hot-toast"
 import { MoreHorizontal } from "lucide-react"
+import { useRouter } from "next/navigation"
 
-export type Monja = {
-    id : string
-    nome : string
-    camposId?: String[]
-    BastardaLegitima? :string
-    LinhagemFamiliar? : string
-    NomeReligioso? : string
-    Idade? : string
-    DataDeNascimento? : string
-    TempoDeNoviciado? : string
-    LocalDeBatismo? : string
-    Pai? : string
-    AvoPaterno? : string
-    AvoPaterna? : string
-    Mae? : string
-    AvoMaterno? : string
-    AvoMaterna? : string
-    FreirasParentesco? : string
-    Irmaos? : string
-    Observacoes? : string
-}
-
-export const columns: ColumnDef<Monja>[] = [
-    {
+export const columns: ColumnDef<tabelaRow>[] = [
+      
+      {
         id: "select",
         header: ({ table }) => (
           <Checkbox
@@ -131,7 +111,8 @@ export const columns: ColumnDef<Monja>[] = [
       id: "actions",
       cell: ({ row }) => {
         const monja = row.original
-   
+        const router = useRouter();
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -150,8 +131,10 @@ export const columns: ColumnDef<Monja>[] = [
               >
                 Copiar id Monja
               </DropdownMenuItem>
+              
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Ver Monja</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {router.push('/' + monja.id)}}>Ver Monja</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {router.push('/editar_monja/' + monja.id)}}>Editar Monja</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )
