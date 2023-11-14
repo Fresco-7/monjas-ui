@@ -14,18 +14,11 @@ import {
 import toast from "react-hot-toast"
 import { MoreHorizontal } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Campo } from "@prisma/client"
 
 
-export const columns: ColumnDef<SingleMonjatabelaRow>[] = [
+export const columns: ColumnDef<Campo>[] = [
   
-    {
-      accessorKey: "livro",
-      header: "Livro",
-    }, 
-    {
-      accessorKey: "nrFolio",
-      header : "nrFolio",
-    },
     {   
         accessorKey: "filiacao",
         header: "Filiação",
@@ -39,7 +32,7 @@ export const columns: ColumnDef<SingleMonjatabelaRow>[] = [
       header: "idade",
     },
     {   
-      accessorKey: "DataNascimento",
+      accessorKey: "dataNascimento",
       header: "Data de Nascimento",
     },
     {   
@@ -47,7 +40,7 @@ export const columns: ColumnDef<SingleMonjatabelaRow>[] = [
       header: "Tempo de Noviciado",
     },
     {   
-      accessorKey: "NomeReligioso",
+      accessorKey: "nomeReligioso",
       header: "Nome Religioso",
     },
     {   
@@ -90,7 +83,6 @@ export const columns: ColumnDef<SingleMonjatabelaRow>[] = [
       accessorKey: "observacoes",
       header: "Observações",
     },
-    
     {
       id: "actions",
       cell: ({ row }) => {
@@ -110,7 +102,8 @@ export const columns: ColumnDef<SingleMonjatabelaRow>[] = [
                 Editar Campo
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Ver Monja</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {router.push('/livro/' + id)}}>Ver Livo</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {router.push('/editar_livro/' + id)}}>Editar Livo</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )

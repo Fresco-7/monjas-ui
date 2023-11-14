@@ -3,11 +3,10 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { Livro } from '@prisma/client';
 import toast from 'react-hot-toast'
-import EditarCampoForm from '@/app/(forms)/components/EditarCampoForm';
-
+import EditarLivroForm from '@/app/(forms)/components/EditarLivroForm';
 
 const getData = async (id : string) => {
-  const data = await fetch(`http://localhost:3000/api/get_campo/${id}`);
+  const data = await fetch(`http://localhost:3000/api/get_livro/${id}`);
   const livro = await data.json();
   if(livro.error){
     return livro
@@ -15,7 +14,7 @@ const getData = async (id : string) => {
   return livro as Livro
 }
 
-export default async function EditarCampo ({ params }: { params: { id: string } }){
+export default async function EditarLivro ({ params }: { params: { id: string } }){
   const res = await getData(params.id);
   if(res.error){
     return(
@@ -28,7 +27,7 @@ export default async function EditarCampo ({ params }: { params: { id: string } 
     <>
         <div className='flex  justify-center h-full w-full '>
           <div className='flex w-full h-full mt-10 justify-center'>
-            <EditarCampoForm campo={res.campo} referencia={res.referencia} livro={res.livro}/>
+            <EditarLivroForm data={res}/>
           </div>
         </div>
     </>

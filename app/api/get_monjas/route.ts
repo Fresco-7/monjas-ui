@@ -6,15 +6,13 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
     try{
-        
         const campos = await prismadb.campo.findMany();
         const monjas = await prismadb.monja.findMany({
             select: {
               id: true,
               nome : true
             },
-        });
-        
+        });        
         const camposJson = [];
         for (const monja of monjas) {
             const camposDaMonja :  Campo[] = campos.filter(campo => campo.monjaId === monja.id);
@@ -39,11 +37,10 @@ export async function GET() {
             });
             camposJson.push(row);
         }
-
-        return NextResponse.json(camposJson);
+        return NextResponse.json(camposJson, {status : 200});
 
     }catch (error){
-        console.error(error);
+        return NextResponse.json({ error: 'Error' }, { status: 404 })      
     }
 }
 

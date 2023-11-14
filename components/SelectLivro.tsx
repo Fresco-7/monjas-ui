@@ -34,7 +34,7 @@ export function SelectLivro({livros, onLivroSelect, livroId} : {livros : Livro[]
         >
           {value
             ? livros.find((livro) => livro.id === value)?.nome
-            : "Escolha um Livro ..."}
+            : "t ..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

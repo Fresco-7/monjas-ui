@@ -4,7 +4,7 @@ declare global{
     namespace globalThis{
         var prismadb: PrismaClient
     }
-    interface criarMonjaFrom {
+    interface MonjaForm {
         irmaos : string;
         nome: string;
         filiacao: string;
@@ -22,17 +22,32 @@ declare global{
         avoMaterna : string;
         freirasParentesco: string;
         observacoes: string;
-        referencia : string;
+        nrFolio : string;
         datacaoReferencia : string;
     }
-    interface interfaceCampo {
-        avoMaterna : string;
-        avoMaterno : string;
-        avoPaterna : string;
-        avoPaterno : string;
-        dataNascimento : string;
-        filiacao : string;
-        freirasParentesco : string;
+
+    type MonjaTabelaRow = {
+        id : string
+        filiacao? :string
+        linhagemFamiliar? : string
+        nomeReligioso? : string
+        idade? : string
+        dataNascimento? : string
+        tempoDeNoviciado? : string
+        naturalidadeBatismo? : string
+        pai? : string
+        avoPaterno? : string
+        avoPaterna? : string
+        mae? : string
+        avoMaterno? : string
+        avoMaterna? : string
+        freirasParentesco? : string
+        irmaos? : string
+        observacoes? : string
+        monjaId? : string
+        nrFolio? : string
+        datacaoReferencia? : string
+        livro? : string
     }
 
     type tabelaRow = {
@@ -56,33 +71,5 @@ declare global{
         irmaos? : string
         observacoes? : string
     }
-
-    type SingleMonjatabelaRow = {
-
-        id? : Sting
-        referencia? : String
-        livro? : string
-        nrFolio : string
-        filiacao? :string
-        linhagemFamiliar? : string
-        nomeReligioso? : string
-        idade? : string
-        dataNascimento? : string
-        tempoDeNoviciado? : string
-        naturalidadeBatismo? : string
-        pai? : string
-        avoPaterno? : string
-        avoPaterna? : string
-        mae? : string
-        avoMaterno? : string
-        avoMaterna? : string
-        freirasParentesco? : string
-        irmaos? : string
-        observacoes? : string
-
-    }
-
-    type SingleMonja = {
-        Campos : Campo[]
-    }
+    
 }

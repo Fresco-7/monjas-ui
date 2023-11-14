@@ -1,5 +1,5 @@
 import React from 'react'
-import CriarLivroFrom from '../../components/CriarLivro';
+import CriarLivroFrom from '../(forms)/components/CriarLivro';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 

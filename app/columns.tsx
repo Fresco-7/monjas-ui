@@ -133,7 +133,7 @@ export const columns: ColumnDef<tabelaRow>[] = [
               </DropdownMenuItem>
               
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => {router.push('/' + monja.id)}}>Ver Monja</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {router.push('/monja/' + monja.id)}}>Ver Monja</DropdownMenuItem>
               <DropdownMenuItem onClick={() => {router.push('/editar_monja/' + monja.id)}}>Editar Monja</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

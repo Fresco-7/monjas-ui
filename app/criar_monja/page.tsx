@@ -1,8 +1,8 @@
 import React from 'react'
-import CriarMonjaForm from '../../components/CriarMonja';
+import CriarMonjaForm from '../(forms)/components/CriarMonja';
 
 
-const CriarMonja =  async () => {
+const CriarMonja = () => {
 
 
   return (

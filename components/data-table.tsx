@@ -33,7 +33,6 @@ import { useState } from "react"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  
 }
 
 export function DataTable<TData, TValue>({
@@ -54,10 +53,18 @@ export function DataTable<TData, TValue>({
     onGlobalFilterChange: setFiltering,
   });
 
-  
+
   return (
     <>
     <div className="relative flex flex-col ">
+      <div className="flex pr-4 lg:justify-end justify-center">
+        <Button onClick={
+          () => {
+            //Get the ids that are selected and send it to somewhere
+          
+          }
+        } variant="outline" size="sm" className=" hidden h-8 flex">Download </Button>
+      </div>
       <div className="flex p-4 items-center space-x-5 lg:justify-between justify-center" >
           <Input placeholder="Filtro" value={filtering} onChange={(e) => {setFiltering(e.target.value);}}className="max-w-sm sm"/>
           <DataTableViewOptions table={table} />

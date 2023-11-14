@@ -13,7 +13,6 @@ const HomePage = () => {
   const {data, isLoading, isError} = useQuery({
     queryKey: ['tabelaRow'],
     queryFn : async () => {
-      console.log(1);
         const {data} = await axios.get('/api/get_monjas');
         return data as tabelaRow []
     }

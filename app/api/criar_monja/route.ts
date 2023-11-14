@@ -1,9 +1,10 @@
 import prismadb from '@/lib/prismadb';
 
 export async function POST(req: Request) {
+    
     const dataJson = await req.json();
     const idLivro = dataJson.idLivro;
-    const data = dataJson.data as criarMonjaFrom;
+    const data = dataJson.data as MonjaForm;
     try {
         const existingMonja = await prismadb.monja.findFirst({
             where : {
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
 
         const referenciaModal = await prismadb.referencia.create({
             data : {
-                nrFolio : data.referencia,
+                nrFolio : data.nrFolio,
                 datacaoReferencia : data.datacaoReferencia,
                 livro : {
                     connect : {
