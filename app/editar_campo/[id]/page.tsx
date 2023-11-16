@@ -1,36 +1,38 @@
 import React from 'react'
-import axios from 'axios';
-import { useQuery } from 'react-query';
-import { Livro } from '@prisma/client';
-import toast from 'react-hot-toast'
+import { Campo, Livro } from '@prisma/client';
 import EditarCampoForm from '@/app/(forms)/components/EditarCampoForm';
+import PageError from '@/components/errorPage';
 
 
 const getData = async (id : string) => {
-  const data = await fetch(`http://localhost:3000/api/get_campo/${id}`);
-  const livro = await data.json();
-  if(livro.error){
-    return livro
+  const data = await fetch(`http://localhost:3000/api/get_campo/${id}`,{cache : 'no-store'});
+  if (data.status === 200) {
+    const campo = await data.json();
+    return campo
+  }else{
+    throw new Error('Erro ao buscar o Campo');
   }
-  return livro as Livro
 }
 
 export default async function EditarCampo ({ params }: { params: { id: string } }){
-  const res = await getData(params.id);
-  if(res.error){
-    return(
+  try {
+    const res = await getData(params.id);
+    return (
       <>
-        <p>Retorna uma pagina </p>
-      </>
-    )
-  }
-  return (
-    <>
         <div className='flex  justify-center h-full w-full '>
           <div className='flex w-full h-full mt-10 justify-center'>
             <EditarCampoForm campo={res.campo} referencia={res.referencia} livro={res.livro}/>
           </div>
         </div>
-    </>
-  )
+      </>
+    )
+  } catch (error) {
+    return(
+      <>
+        <PageError />
+      </>
+    )
+
+  }
+
 }

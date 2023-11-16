@@ -26,7 +26,7 @@ export async function POST(req: Request) {
             new Error("Livro não encontrado!");
         }
 
-        const referenciaModal = await prismadb.referencia.create({
+        const referencia = await prismadb.referencia.create({
             data : {
                 nrFolio : data.nrFolio,
                 datacaoReferencia : data.datacaoReferencia,
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
                 irmaos : data.irmaos,
                 referencia : {
                     connect : {
-                        id : referenciaModal?.id
+                        id : referencia?.id
                     }
                 },
                 monja : {

@@ -66,8 +66,8 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
         const axiosError = error as AxiosError;
         if (axiosError.response) {
           const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-      }
-      toast.error("Tente de novo");
+          toast.error(str)
+        }
       }
     }
   }
@@ -107,7 +107,7 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
               
        </div>
           <div className="flex flex-col space-y-1.5">
-                <Label >Referencia</Label>
+                <Label >Numero Folio</Label>
                 <Textarea value={formData.nrFolio} onChange={(e) => setFormData({ ...formData, nrFolio: e.target.value })} />        
           </div>
           <div className="flex flex-col space-y-1.5">
@@ -181,7 +181,7 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
             </div>
         </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Criar monja</Button>
+        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Atualizar Campo</Button>
       </CardFooter>
     </Card>
     </>

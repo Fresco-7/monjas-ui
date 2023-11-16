@@ -4,12 +4,12 @@ import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from '@/components/ui
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import axios, { AxiosError } from 'axios';
+import router, { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
 const CriarLivro = () => {
-  
- 
+  const router = useRouter();
   async function handleForm() {
     if(nome.length === 0){
       toast.error('Digite o nome!');
@@ -17,23 +17,22 @@ const CriarLivro = () => {
       try{
         await axios.post('/api/criar_livro', {nome, dataPub, autores });
         toast.success('Livro Criado');
+        router.push('/');
       }catch (error){
         if (axios.isAxiosError(error)) {
           const axiosError = error as AxiosError;
           if (axiosError.response) {
             const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+            toast.error(str);
           }
-          toast.error("Tente de novo");
         }
       }
     }
   }
   
-  
   const [nome, setNome] = useState('');
   const [autores, setAutores] = useState('');
   const [dataPub, setDataPub] = useState('');
-
 
   return (
     <>

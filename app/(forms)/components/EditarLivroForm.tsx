@@ -23,8 +23,8 @@ const EditarLivroForm = ( {data} : {data : Livro}) => {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
           const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+          toast.error(str);
         }
-        toast.error("Tente de novo");
       }
     }
   }
@@ -37,7 +37,7 @@ const EditarLivroForm = ( {data} : {data : Livro}) => {
     <>
       <Card className='w-1/2 h-relative'>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Editar livro {nome}</CardTitle>
+          <CardTitle className="text-2xl">Editar livro {data.nome}</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">

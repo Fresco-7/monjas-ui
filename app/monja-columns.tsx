@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui/checkbox"
+import {AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -101,9 +101,25 @@ export const columns: ColumnDef<Campo>[] = [
               <DropdownMenuItem onClick={() => {router.push('/editar_campo/' + id)}}>
                 Editar Campo
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => {router.push('/livro/' + id)}}>Ver Livo</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => {router.push('/editar_livro/' + id)}}>Editar Livo</DropdownMenuItem>
+              <div className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent pb-2">
+              <AlertDialog >
+                    <AlertDialogTrigger className="cursor-select" asChild>
+                        <span>Apagar Monja</span>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>Deseja mesmo apagar este campo?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Esta ação não pode ser revertida.
+                        </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+                </div>
             </DropdownMenuContent>
           </DropdownMenu>
         )

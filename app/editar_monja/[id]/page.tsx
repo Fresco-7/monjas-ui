@@ -1,37 +1,36 @@
 import React from 'react'
-import axios from 'axios';
-import { useQuery } from 'react-query';
-import { Livro, Monja } from '@prisma/client';
-import toast from 'react-hot-toast'
-import EditarLivroForm from '@/app/(forms)/components/EditarLivroForm';
-import EditarMonja from '@/app/(forms)/components/EditarMonja';
+import { Monja } from '@prisma/client';
+import EditarMonjaForm from '@/app/(forms)/components/EditarMonja';
+import PageError from '@/components/errorPage';
 
 const getData = async (id : string) => {
-  const data = await fetch(`http://localhost:3000/api/get_monja/${id}`);
-  const monja = await data.json();
-  if(monja.error){
-    return monja
+  const data = await fetch(`http://localhost:3000/api/get_monja/${id}`,{cache : 'no-store'});
+  if (data.status === 200) {
+    const monja = await data.json();
+    return monja as Monja
+  }else{
+    throw new Error('Erro ao buscar o Campo');
   }
-  return monja as Monja
 }
 
-export default async function EditarLivro ({ params }: { params: { id: string } }){
-  const res = await getData(params.id);
-  if(res.error){
-    return(
-        <>
-        <p>Retorna outra pagina</p>
-        </>
-    )
-  }
-
-  return (
-    <>
-        <div className='flex  justify-center h-full w-full '>
-          <div className='flex w-full h-full mt-10 justify-center'>
-            <EditarMonja data={res}/>
+export default async function EditarMonja ({ params }: { params: { id: string } }){
+  try{
+    const data = await getData(params.id);
+    return (
+      <>
+          <div className='flex  justify-center h-full w-full '>
+            <div className='flex w-full h-full mt-10 justify-center'>
+              <EditarMonjaForm data={data}/>
+            </div>
           </div>
-        </div>
-    </>
-  )
+      </>
+    )
+  }catch (error) {
+    return(
+      <>
+        <PageError/>
+      </>
+    )
+
+  }
 }

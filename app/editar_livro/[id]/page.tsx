@@ -1,12 +1,10 @@
 import React from 'react'
-import axios from 'axios';
-import { useQuery } from 'react-query';
 import { Livro } from '@prisma/client';
-import toast from 'react-hot-toast'
 import EditarLivroForm from '@/app/(forms)/components/EditarLivroForm';
+import PageError from '@/components/errorPage';
 
 const getData = async (id : string) => {
-  const data = await fetch(`http://localhost:3000/api/get_livro/${id}`);
+  const data = await fetch(`http://localhost:3000/api/get_livro/${id}`, {cache : 'no-store'});
   const livro = await data.json();
   if(livro.error){
     return livro
@@ -19,7 +17,7 @@ export default async function EditarLivro ({ params }: { params: { id: string } 
   if(res.error){
     return(
       <>
-        <p>Retorna uma pagina </p>
+        <PageError />
       </>
     )
   }

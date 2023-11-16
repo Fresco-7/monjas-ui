@@ -3,9 +3,9 @@ import prismadb from '@/lib/prismadb';
 export async function POST(req: Request) {
     const { nome, autores, dataPub } = await req.json();
     try {
-        const existingLivro = await prismadb.monja.findFirst({
+        const existingLivro = await prismadb.livro.findFirst({
             where : {
-                nome
+                nome : nome
             }
         });
         if(existingLivro){

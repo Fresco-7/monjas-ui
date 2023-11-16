@@ -16,10 +16,10 @@ import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { Livro } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const CriarMonja = () => {
-    
+  const router = useRouter();
   const [selectedLivro, setSelectedLivro] = useState(''); // Initialize with an empty string or a default value
 
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
@@ -30,7 +30,7 @@ const CriarMonja = () => {
         return data.books as Livro []
     }
   })
-
+  
   const [formData, setFormData] = useState<MonjaForm>({
     nrFolio: '', 
     datacaoReferencia: '',
@@ -54,15 +54,35 @@ const CriarMonja = () => {
   });
 
   const handleForm = async () => {
+    if(selectedLivro === ''){
+      toast.error("Por favor selecione um Livro");
+      return
+    }
+    if(formData.nome === ''){
+      toast.error("Por favor insira um nome");
+      return
+    }      
+    if(formData.nome === ''){
+      toast.error("Por favor insira um nome");
+      return
+    }
+    if(formData.nrFolio === ''){
+      toast.error("Por favor insira o Número Folio");
+      return
+    }
+
     try{
       const res = await axios.post('/api/criar_monja', {"data" : formData, "idLivro" : selectedLivro} );
       toast.success("Monja criada");
+      router.push('/');
+
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
           const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-      }
+          toast.error(str);     
+        }
       toast.error("Tente de novo");
       }
     }
@@ -101,7 +121,7 @@ const CriarMonja = () => {
               
        </div>
           <div className="flex flex-col space-y-1.5">
-                <Label >Referencia</Label>
+                <Label >Numero Folio</Label>
                 <Textarea value={formData.nrFolio} onChange={(e) => setFormData({ ...formData, nrFolio: e.target.value })} />        
           </div>
           <div className="flex flex-col space-y-1.5">
@@ -109,7 +129,7 @@ const CriarMonja = () => {
                 <Textarea value={formData.datacaoReferencia} onChange={(e) => setFormData({ ...formData, datacaoReferencia: e.target.value })} />        
             </div>
         <div className="flex flex-col space-y-1.5">
-                <Label >Nome </Label>
+                <Label >Nome da Monja</Label>
                 <Textarea value={formData.nome} onChange={(e) => setFormData({ ...formData, nome: e.target.value })} />        
             </div>
             <div className="flex flex-col space-y-1.5">

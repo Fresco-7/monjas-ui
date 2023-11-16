@@ -38,6 +38,11 @@ const SingleMonja = ({ data }: { data: any }) => {
                         router.push('/editar_monja/'+ data?.monja.id)
                     }}>Editar Monja</Button>
                 </div>
+                <div className="ml-3">
+                    <Button onClick={() => {
+                        router.push('/criar_campo/'+ data?.monja.id)
+                    }}>Criar Campo</Button>
+                </div>
             </div>
             <div>
                 <DataTable columns={columns} data={campos}></DataTable>

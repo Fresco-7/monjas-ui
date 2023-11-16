@@ -14,9 +14,19 @@ const HomePage = () => {
     queryKey: ['tabelaRow'],
     queryFn : async () => {
         const {data} = await axios.get('/api/get_monjas');
-        return data as tabelaRow []
+        return data as tabelaRow[]
     }
   })
+
+  if(isLoading){
+    return(
+      <>
+        <div>
+          
+        </div>
+      </>
+    )
+  }
   
   return (
     <>
@@ -30,6 +40,9 @@ const HomePage = () => {
           <div className="ml-3"><Button onClick={() =>{
             router.push('/criar_livro');
           }}>Criar Livro</Button></div>
+          <div className="ml-3"><Button onClick={() =>{
+            router.push('/criar_campo');
+          }}>Criar Campo</Button></div>
       </div>
       <div className="p-10">
         <DataTable columns={columns} data={data || []} />

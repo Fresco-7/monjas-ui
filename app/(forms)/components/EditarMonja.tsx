@@ -33,8 +33,8 @@ const EditarMonja = ({data} : {data : Monja}) => {
           const axiosError = error as AxiosError;
           if (axiosError.response) {
             const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+            toast.error(str);
           }
-          toast.error("Tente de novo");
         }
       }
     }

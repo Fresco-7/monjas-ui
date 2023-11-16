@@ -4,7 +4,6 @@ import CriarMonjaForm from '../(forms)/components/CriarMonja';
 
 const CriarMonja = () => {
 
-
   return (
     <>
         <div className='flex  justify-center h-full w-full '>
