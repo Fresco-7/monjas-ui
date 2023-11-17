@@ -10,17 +10,24 @@ import {
   } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { Campo, Livro, Referencia } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia: Referencia, livro : Livro}) => {
   const router = useRouter();
-  const [selectedLivro, setSelectedLivro] = useState(livro.id);
+  const [selectedLivro, setSelectedLivro] = useState("");
+  useEffect(() => {
+    if (livro !== null) {
+      setSelectedLivro(livro.id);
+    }
+  }, [selectedLivro, livro]);
+  
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
   
   const {data, isLoading, isError} = useQuery({
@@ -58,6 +65,8 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
 
   const handleForm = async () => {
     try{
+      setIsDisabled(true);
+
       const res = await axios.post(`/api/editar_campo/${campo.id}`, {"data" : formData, "idLivro" : selectedLivro} );
       toast.success("Campo Atualizado");
       router.push('/');
@@ -69,6 +78,8 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
           toast.error(str)
         }
       }
+    }finally{
+      setIsDisabled(false);
     }
   }
     if(isLoading){
@@ -99,7 +110,7 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
           </>) 
           : (
             <><div className='flex items-center justify-center p-4'>
-                <span className='text-primary/80 text-xl sm:text-md'>Nenhum livro, crie um livro <span className='ml-1 text-primary/80 text-xl sm:text-md underline hover:cursor-pointer hover:text-primary'>aqui</span> </span>
+                <span className='text-primary/80 text-xl sm:text-md'>Nenhum livro, crie um livro <Link href="/criar_livro"><span className='ml-1 text-primary/80 text-xl sm:text-md underline hover:cursor-pointer hover:text-primary'>aqui</span></Link> </span>
               </div>
             </>
           ) 

@@ -7,7 +7,9 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-  getPaginationRowModel
+  getPaginationRowModel,
+  RowData,
+  selectRowsFn
 } from "@tanstack/react-table"
 
 import {
@@ -29,17 +31,21 @@ import {   Select,
   SelectValue, } from "./ui/select"
 import { DataTableViewOptions } from "./data-table-view-options"
 import { useState } from "react"
+import { Campo } from "@prisma/client"
+import { Value } from "@radix-ui/react-select"
+import axios, { AxiosError } from "axios"
+import toast from "react-hot-toast"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+
+
+export function DataTable<TData, TValue>({columns,data} : DataTableProps<TData, TValue>) {
   const [filtering, setFiltering] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const table = useReactTable({
     data,
@@ -51,20 +57,30 @@ export function DataTable<TData, TValue>({
       globalFilter: filtering,
     },
     onGlobalFilterChange: setFiltering,
-  });
 
+  });
+  const handleDownload = async (ids : any[]) => {
+    try{
+      setIsDisabled(true);
+
+      const res = await axios.get(`/api/download_monjas`, {"data" : ids});
+      toast.success("Download Iniciado");
+    }catch (error){
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+          toast.error(str)
+        }
+      }
+    }finally{
+      setIsDisabled(false);
+    }
+  }
 
   return (
     <>
     <div className="relative flex flex-col ">
-      <div className="flex pr-4 lg:justify-end justify-center">
-        <Button onClick={
-          () => {
-            //Get the ids that are selected and send it to somewhere
-          
-          }
-        } variant="outline" size="sm" className=" hidden h-8 flex">Download </Button>
-      </div>
       <div className="flex p-4 items-center space-x-5 lg:justify-between justify-center" >
           <Input placeholder="Filtro" value={filtering} onChange={(e) => {setFiltering(e.target.value);}}className="max-w-sm sm"/>
           <DataTableViewOptions table={table} />
@@ -75,6 +91,7 @@ export function DataTable<TData, TValue>({
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
+
                     return (
                       <TableHead key={header.id}>
                         {header.isPlaceholder
@@ -90,11 +107,12 @@ export function DataTable<TData, TValue>({
               ))}
             </TableHeader>
             <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => {
+                const data = row.original as tabelaRow
+                return (
                   <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
+                    key={data.id} data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
@@ -105,7 +123,8 @@ export function DataTable<TData, TValue>({
                       </TableCell>
                     ))}
                   </TableRow>
-                ))
+                );
+              })
               ) : (
                 <TableRow>
                   <TableCell

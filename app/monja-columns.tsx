@@ -15,10 +15,12 @@ import toast from "react-hot-toast"
 import { MoreHorizontal } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Campo } from "@prisma/client"
+import axios, { AxiosError } from "axios";
+import Link from "next/link";
+
 
 
 export const columns: ColumnDef<Campo>[] = [
-  
     {   
         accessorKey: "filiacao",
         header: "Filiação",
@@ -87,7 +89,6 @@ export const columns: ColumnDef<Campo>[] = [
       id: "actions",
       cell: ({ row }) => {
         const id = row.original.id
-        const router = useRouter();
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -98,13 +99,13 @@ export const columns: ColumnDef<Campo>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Ações</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => {router.push('/editar_campo/' + id)}}>
+              <Link href={`/editar_campo/${id}`}><DropdownMenuItem>
                 Editar Campo
-              </DropdownMenuItem>
+              </DropdownMenuItem></Link>
               <div className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent pb-2">
               <AlertDialog >
                     <AlertDialogTrigger className="cursor-select" asChild>
-                        <span>Apagar Monja</span>
+                        <span>Apagar Campo</span>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
@@ -115,14 +116,31 @@ export const columns: ColumnDef<Campo>[] = [
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
+                        <AlertDialogAction onClick={async () =>{
+                         try{
+                          const res = await axios.post(`/api/apagar_campo/${id}`);
+                          toast.success('Campo apagado');
+                        }catch (error){
+                          if (axios.isAxiosError(error)) {
+                            const axiosError = error as AxiosError;
+                            if (axiosError.response) {
+                              const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+                              toast.error(str);
+                            }
+                          }
+                        }
+                        }} className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
-                </div>
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
         )
       },
-  },
-]
+    },
+  ]
+
+
+
+  

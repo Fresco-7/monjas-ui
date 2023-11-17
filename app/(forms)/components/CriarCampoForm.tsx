@@ -10,20 +10,22 @@ import {
   } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import { Livro } from '@prisma/client';
+
+import { Campo, Livro, Monja} from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-const CriarMonja = () => {
+const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
+  console.log(Monja);
   const router = useRouter();
-  const [selectedLivro, setSelectedLivro] = useState(''); // Initialize with an empty string or a default value
-
+  const [selectedLivro, setSelectedLivro] = useState('');  
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
+
   const {data, isLoading, isError} = useQuery({
     queryKey: ['books'],
     queryFn : async () => {
@@ -31,11 +33,10 @@ const CriarMonja = () => {
         return data.books as Livro []
     }
   })
-  
-  const [formData, setFormData] = useState<MonjaForm>({
+
+  const [formData, setFormData] = useState({
     nrFolio: '', 
     datacaoReferencia: '',
-    nome: '',
     filiacao: '',
     linhagemFamiliar: '',
     nomeReligioso: '',
@@ -52,45 +53,27 @@ const CriarMonja = () => {
     freirasParentesco: '',
     observacoes: '',
     irmaos: '',
+    idLivro : '',
   });
 
   const handleForm = async () => {
-    setIsDisabled(true);
-    if(selectedLivro === ''){
-      toast.error("Por favor selecione um Livro");
-      setIsDisabled(false);
-      return
-    }
-    if(formData.nome === ''){
-      toast.error("Por favor insira um nome");
-      setIsDisabled(false);
-      return
-    }      
-    if(formData.nrFolio === ''){
-      toast.error("Por favor insira o Número Folio");
-      setIsDisabled(false);
-      return
-    }
-
     try{
-      const res = await axios.post('/api/criar_monja', {"data" : formData, "idLivro" : selectedLivro} );
-      toast.success("Monja criada");
+      setIsDisabled(true);
+      const res = await axios.post(`/api/criar_campo/${Monja.id}`, {"data" : formData} );
+      toast.success("Campo criado");
       router.push('/');
-
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
           const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-          toast.error(str);     
+          toast.error(str)
         }
-      toast.error("Tente de novo");
       }
     }finally{
       setIsDisabled(false);
     }
   }
-  
     if(isLoading){
       return(
         <>
@@ -105,14 +88,14 @@ const CriarMonja = () => {
     <>
     <Card className='w-1/2 h-relative'>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Criar Monja</CardTitle>
+        <CardTitle className="text-2xl"> Monjaaa </CardTitle>
       </CardHeader>
         <CardContent className='grid grid-cols-2 gap-4 mt-2 '>
-        <div className="flex flex-col space-y-1.5 justify-center items-left col-span-2 mb-4">
-          
+        <div className="flex flex-col space-y-1.5 justify-center items-left col-span-2 mb-4 items-center">
+          <Label className='bold' >Livro</Label>
           {data ? data.length != 0 ? (
           <><div className='flex justify-center'>
-              <SelectLivro livros={data} onLivroSelect={setSelectedLivro} livroId={""}/>
+              <SelectLivro livros={data} onLivroSelect={setSelectedLivro} livroId={selectedLivro}/>
             </div>
           </>) 
           : (
@@ -132,10 +115,7 @@ const CriarMonja = () => {
                 <Label>Datacao da Referencia</Label>
                 <Textarea value={formData.datacaoReferencia} onChange={(e) => setFormData({ ...formData, datacaoReferencia: e.target.value })} />        
             </div>
-        <div className="flex flex-col space-y-1.5">
-                <Label >Nome da Monja</Label>
-                <Textarea value={formData.nome} onChange={(e) => setFormData({ ...formData, nome: e.target.value })} />        
-            </div>
+
             <div className="flex flex-col space-y-1.5">
                 <Label >Bastarda ou Legitima</Label>
                 <Textarea value={formData.filiacao} onChange={(e) => setFormData({ ...formData, filiacao: e.target.value })} />        
@@ -196,18 +176,17 @@ const CriarMonja = () => {
                 <Label>Irmãos</Label>
                 <Textarea value={formData.irmaos} onChange={(e) => setFormData({ ...formData, irmaos: e.target.value })} />        
             </div>
-            {/* Implementar feature de adicionar irmaos */}
             <div className="flex flex-col col-span-2 space-y-1.5">
                 <Label>Observações</Label>
                 <Textarea value={formData.observacoes} onChange={(e) => setFormData({ ...formData, observacoes: e.target.value })} />        
             </div>
         </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Criar monja</Button>
+        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Atualizar Campo</Button>
       </CardFooter>
     </Card>
     </>
   )
 
 }
-export default CriarMonja;
+export default CriarCampoForm;

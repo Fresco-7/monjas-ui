@@ -17,11 +17,12 @@ const getData = async (id : string) => {
 export default async function EditarCampo ({ params }: { params: { id: string } }){
   try {
     const res = await getData(params.id);
+
     return (
       <>
         <div className='flex  justify-center h-full w-full '>
           <div className='flex w-full h-full mt-10 justify-center'>
-            <EditarCampoForm campo={res.campo} referencia={res.referencia} livro={res.livro}/>
+            <EditarCampoForm campo={res.campo} referencia={res.referencia} livro={res.livro || null}/>
           </div>
         </div>
       </>

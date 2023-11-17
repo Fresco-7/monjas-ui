@@ -14,12 +14,16 @@ export async function GET(req: Request, context: any) {
           id : existingCampo.referenciaId
         }
       })
-      const livro = await prismadb.livro.findFirst({
-        where : {
-          id : referencia?.livroId
-        }
-      })
-      return NextResponse.json({ campo : existingCampo, referencia : referencia, livro : livro }, { status: 200 })
+      if(referencia?.livroId){
+        const livro = await prismadb.livro.findFirst({
+          where : {
+            id : referencia.livroId
+          }
+        })
+        return NextResponse.json({ campo : existingCampo, referencia : referencia, livro : livro }, { status: 200 })
+
+      } 
+      return NextResponse.json({ campo : existingCampo, referencia : referencia }, { status: 200 })
     }else{
       return NextResponse.json({ error: 'Data not found' }, { status: 404 })  
     }

@@ -35,7 +35,7 @@ const SingleMonja = ({ data }: { data: any }) => {
                 </AlertDialog>
                 <div className="ml-3">
                     <Button onClick={() => {
-                        router.push('/editar_monja/'+ data?.monja.id)
+                        router.push(`/editar_monja/${data?.monja.id}`)
                     }}>Editar Monja</Button>
                 </div>
                 <div className="ml-3">

@@ -19,11 +19,15 @@ import toast from 'react-hot-toast';
 const EditarMonja = ({data} : {data : Monja}) => {
     const router = useRouter();
     const [nome, setNome] = useState(data.nome);
+    const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
     const handleForm = async () => {
+      setIsDisabled(true);
       if(nome.length === 0){
         toast.error("Digite um nome");
+
       }
+
       try{
         await axios.post('/api/editar_monja/'+data.id, {nome});
         toast.success('Monja Atualizado');
@@ -36,6 +40,8 @@ const EditarMonja = ({data} : {data : Monja}) => {
             toast.error(str);
           }
         }
+      }finally{
+        setIsDisabled(false);
       }
     }
 
@@ -52,7 +58,7 @@ const EditarMonja = ({data} : {data : Monja}) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" onClick={handleForm}>Atualizar Monja</Button>
+        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Atualizar Monja</Button>
       </CardFooter>
     </Card>
     </>

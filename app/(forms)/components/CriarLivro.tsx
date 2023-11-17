@@ -9,12 +9,14 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
 const CriarLivro = () => {
-  const router = useRouter();
-  async function handleForm() {
+  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
+  
+  const router = useRouter();  async function handleForm() {
     if(nome.length === 0){
       toast.error('Digite o nome!');
     }else{
       try{
+        setIsDisabled(true);
         await axios.post('/api/criar_livro', {nome, dataPub, autores });
         toast.success('Livro Criado');
         router.push('/');
@@ -26,6 +28,8 @@ const CriarLivro = () => {
             toast.error(str);
           }
         }
+      }finally{
+        setIsDisabled(false);
       }
     }
   }

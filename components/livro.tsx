@@ -5,17 +5,24 @@ import { Button } from "./ui/button";
 
 import {AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from "./ui/alert-dialog";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+interface LivroCardProps {
+    livro: Livro;
+    handleRefresh?: () => void; // Making handleRefresh optional with the '?' symbol
+}
 
-const LivroCard = ({livro} : {livro : Livro}) => {
+const LivroCard: React.FC<LivroCardProps> = ({ livro, handleRefresh }) => {    const router = useRouter();
+    if(livro.id){
+        
     return(
             <>
                 <Card>
                     <div className="flex justify-end pt-4 pr-4"> 
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
-                                <Button className="w-16 mr-2" onClick={() => {
-                                console.log("Apagar Livro");
-                                }}>Apagar</Button>
+                                <Button className="w-16 mr-2">Apagar</Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
@@ -25,8 +32,24 @@ const LivroCard = ({livro} : {livro : Livro}) => {
                                 </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                <AlertDialogAction className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
+                                <AlertDialogCancel >Cancelar</AlertDialogCancel>
+                                <AlertDialogAction onClick={async ()=>{
+                                    try{
+                                        const res = await axios.post(`/api/apagar_livro/${livro.id}`);
+                                        if(handleRefresh){
+                                            handleRefresh();
+                                        }
+                                        toast.success('Livro apagado');
+                                    }catch (error){
+                                        if (axios.isAxiosError(error)) {
+                                            const axiosError = error as AxiosError;
+                                            if (axiosError.response) {
+                                                const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+                                                toast.error(str);
+                                            }
+                                        }
+                                    }
+                                }} className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
@@ -39,7 +62,7 @@ const LivroCard = ({livro} : {livro : Livro}) => {
                     </CardHeader>
                 </Card>
             </>
-    )
+    )   }
 }
 
 export default LivroCard;

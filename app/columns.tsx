@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +15,11 @@ import {
 import toast from "react-hot-toast"
 import { MoreHorizontal } from "lucide-react"
 import { useRouter } from "next/navigation"
+import {AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from "@/components/ui/alert-dialog";
+import axios, { AxiosError } from "axios"
+import { useQueryClient } from "react-query"
+import Link from "next/link"
+
 
 export const columns: ColumnDef<tabelaRow>[] = [
   {
@@ -54,15 +60,15 @@ export const columns: ColumnDef<tabelaRow>[] = [
       header: "idade",
     },
     {   
-      accessorKey: "DataNascimento",
+      accessorKey: "dataNascimento",
       header: "Data de Nascimento",
     },
     {   
-      accessorKey: "tempoNoviciado",
+      accessorKey: "tempoDeNoviciado",
       header: "Tempo de Noviciado",
     },
     {   
-      accessorKey: "NomeReligioso",
+      accessorKey: "nomeReligioso",
       header: "Nome Religioso",
     },
     {   
@@ -110,8 +116,7 @@ export const columns: ColumnDef<tabelaRow>[] = [
       id: "actions",
       cell: ({ row }) => {
         const monja = row.original
-        const router = useRouter();
-
+        const id = monja.id
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -130,10 +135,45 @@ export const columns: ColumnDef<tabelaRow>[] = [
               >
                 Copiar id Monja
               </DropdownMenuItem>
-              
+              <div className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent pb-2">
+              <AlertDialog >
+                    <AlertDialogTrigger className="cursor-select" asChild>
+                        <span>Apagar Monja</span>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>Deseja mesmo apagar esta Monja?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Esta ação não pode ser revertida.
+                        </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction onClick={
+                        async () =>{
+                         try{
+                          const res = await axios.post(`/api/apagar_monja/${id}`);
+                          await useQueryClient().invalidateQueries({ queryKey: ['tabelaRow'] }); // Invalidates the query cache
+                          await useQueryClient().refetchQueries({ queryKey: ['tabelaRow'] } ); // Refetches the 'tabelaRow' query
+                          toast.success('Monja apagada');
+                 
+                        }catch (error){
+                          if (axios.isAxiosError(error)) {
+                            const axiosError = error as AxiosError;
+                            if (axiosError.response) {
+                              const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+                              toast.error(str);
+                            }
+                          }
+                        }
+                        }} className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+              </div>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => {router.push('/monja/' + monja.id)}}>Ver Monja</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {router.push('/editar_monja/' + monja.id)}}>Editar Monja</DropdownMenuItem>
+              <Link href={`/monja/${monja.id}`}><DropdownMenuItem >Ver Monja</DropdownMenuItem></Link>
+              <Link href={`/editar_monja//${monja.id}`}><DropdownMenuItem >Editar Monja</DropdownMenuItem></Link>
             </DropdownMenuContent>
           </DropdownMenu>
         )

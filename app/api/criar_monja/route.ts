@@ -26,20 +26,8 @@ export async function POST(req: Request) {
             new Error("Livro não encontrado!");
         }
 
-        const referencia = await prismadb.referencia.create({
-            data : {
-                nrFolio : data.nrFolio,
-                datacaoReferencia : data.datacaoReferencia,
-                livro : {
-                    connect : {
-                        id : livro?.id
-                    }
-                },
-            }
-        })
-
         const monja = await prismadb.monja.create({
-            data : { nome : data.nome, camposIds: []}
+            data : { nome : data.nome}
         });
 
         const campo = await prismadb.campo.create({
@@ -60,16 +48,18 @@ export async function POST(req: Request) {
                 tempoNoviciado : data.tempoNoviciado,
                 naturalidadeBatismo : data.naturalidadeBatismo,
                 irmaos : data.irmaos,
-                referencia : {
-                    connect : {
-                        id : referencia?.id
-                    }
-                },
+                nrFolio : data.nrFolio,
+                datacaoReferencia : data.datacaoReferencia,
                 monja : {
                     connect : {
                         id : monja.id
                     }
-                }
+                },
+                livro : {
+                    connect : {
+                        id : livro?.id
+                    }
+                },
             }
         })
         
@@ -85,18 +75,6 @@ export async function POST(req: Request) {
                 }
             }
         });
-        
-        await prismadb.monja.update({
-            where: {
-                id: monja.id,
-            },
-            data: {
-                camposIds: {
-                    push: campo.id
-                }
-            },
-        });
-        
         
     }catch(error){
         return new Response(JSON.stringify(`Algo correu mal: ${error}`) ,{status: 404});

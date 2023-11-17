@@ -10,33 +10,22 @@ datasource db {
 // schema.prisma
 
 model Livro {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  nome String
-  autor   String
-  dataPub String
-  referencias Referencia[]
-}
-
-model Referencia {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  livro             Livro  @relation(fields: [livroId], references: [id])
-  livroId           String @db.ObjectId
-  nrFolio String
-  datacaoReferencia String
-  Campos            Campo[]
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  nome          String
+  autor         String
+  dataPub       String
+  campos        Campo[]
 }
 
 model Campo {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  referencia        Referencia @relation(fields: [referenciaId], references: [id])
-  referenciaId      String @db.ObjectId
-  filiacao  String //Bastarda ou Legitima
-  linhagemFamiliar String
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  filiacao          String      // Bastarda ou Legitima
+  linhagemFamiliar  String
   nomeReligioso     String
   idade             String
-  dataNascimento  String
-  tempoNoviciado  String
-  naturalidadeBatismo    String
+  dataNascimento    String
+  tempoNoviciado    String
+  naturalidadeBatismo String
   pai               String
   avoPaterno        String
   avoPaterna        String
@@ -46,13 +35,16 @@ model Campo {
   freirasParentesco String
   irmaos            String
   observacoes       String
-  monja             Monja?   @relation(fields: [monjaId], references: [id]) // Relação opcional
-  monjaId           String   @db.ObjectId
+  monja             Monja?      @relation(fields: [monjaId], references: [id], onDelete: Cascade) // Relação opcional
+  monjaId           String      @db.ObjectId
+  nrFolio           String
+  datacaoReferencia String
+  livro             Livro?      @relation(fields: [livroId], references: [id])
+  livroId           String?     @db.ObjectId
 }
 
 model Monja {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  nome  String
-  camposIds String[] @db.ObjectId
-  campos Campo[]
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  nome   String
+  campos Campo[] 
 }
