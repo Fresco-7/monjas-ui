@@ -3,11 +3,12 @@ import prismadb from '@/lib/prismadb';
 export async function POST(req: Request, context: any) {
     const dataJson = await req.json();
     const campo = dataJson.data
+    console.log(dataJson);
 
     try {
         const existingCampo = await prismadb.campo.findFirst({
             where : {
-                id: dataJson.id
+                id: context.params.id
             }
         });
     

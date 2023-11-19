@@ -6,7 +6,6 @@ import { Livro } from "@prisma/client";
 import useSWR from "swr";
 
 
-
 export default function LivroPage (){  
   const { data, isLoading } = useSWR<Livro[]>("/api/get_livros", fetcher);  
   
@@ -23,7 +22,7 @@ export default function LivroPage (){
       { data && data.length > 0  &&(
       <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         {data.map((livro, index) => {
-          return <LivroCard livro={livro} key={index} />; // Render the LivroCard components
+          return <LivroCard livro={livro} key={index} />
         })}
       </div> 
       )

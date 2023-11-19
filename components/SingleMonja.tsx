@@ -14,7 +14,6 @@ import Link from "next/link";
 const SingleMonja = ({ data, id }: { data: any, id : any }) => {
     const campos = data.campos as Campo[]
 
-    
     const router = useRouter();
     return(
         <>  
@@ -56,9 +55,7 @@ const SingleMonja = ({ data, id }: { data: any, id : any }) => {
                     >Editar Monja</Button></Link>
                 </div>
                 <div className="ml-3">
-                    <Button onClick={() => {
-                        router.push('/criar_campo/'+ data?.monja.id)
-                    }}>Criar Campo</Button>
+                <Link href={`/criar_campo/${data?.monja.id}`}><Button>Criar Campo</Button></Link>
                 </div>
             </div>
             <div>

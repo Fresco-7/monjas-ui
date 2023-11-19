@@ -4,7 +4,6 @@ import { DataTable } from "@/components/data-table"
 import { Button } from "@/components/ui/button";
 import fetcher from "@/lib/fetcher";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
 

@@ -1,13 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from '@/components/ui/card';
+import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import React, { useState } from 'react'
@@ -55,7 +48,7 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
       setIsDisabled(true);
       const res = await axios.post(`/api/criar_campo/${Monja.id}`, {"data" : formData, "idLivro" : selectedLivro} );
       toast.success("Campo criado");
-      router.push('/');
+      router.push(`/monja/${Monja.id}`);
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -68,15 +61,12 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
       setIsDisabled(false);
     }
   }
-    if(isLoading){
-      return(
-        <>
-        <div className="flex w-full h-screen justify-center">
-        </div>
-        </>
-      )
-    }
-   
+  if(isLoading){
+    return (
+      <>
+      </>
+    )
+  }
   return (
     <>
     <Card className='w-1/2 h-relative'>

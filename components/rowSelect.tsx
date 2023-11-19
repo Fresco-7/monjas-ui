@@ -72,7 +72,7 @@ export function RowSelect( {monja} : {monja : Monja}) {
               </div>
               <DropdownMenuSeparator />
               <Link href={`/monja/${monja.id}`}><DropdownMenuItem >Ver Monja</DropdownMenuItem></Link>
-              <Link href={`/editar_monja//${monja.id}`}><DropdownMenuItem >Editar Monja</DropdownMenuItem></Link>
+              <Link href={`/editar_monja/${monja.id}`}><DropdownMenuItem >Editar Monja</DropdownMenuItem></Link>
             </DropdownMenuContent>
           </DropdownMenu>
     )

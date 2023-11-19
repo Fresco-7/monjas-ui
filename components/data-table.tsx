@@ -1,41 +1,12 @@
 "use client"
 
-import {
-  ColumnDef,
-
-  getFilteredRowModel,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  RowData,
-  selectRowsFn
-} from "@tanstack/react-table"
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
+import {ColumnDef,getFilteredRowModel,flexRender,getCoreRowModel,useReactTable,getPaginationRowModel,} from "@tanstack/react-table"
+import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow,} from "@/components/ui/table"
 import { Button } from "./ui/button"
 import { Input } from "@/components/ui/input"
-
-import {   Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue, } from "./ui/select"
+import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue, } from "./ui/select"
 import { DataTableViewOptions } from "./data-table-view-options"
 import { useState } from "react"
-import { Campo } from "@prisma/client"
-import { Value } from "@radix-ui/react-select"
-import axios, { AxiosError } from "axios"
-import toast from "react-hot-toast"
-import { useQueryClient } from "react-query"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -46,7 +17,6 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({columns,data} : DataTableProps<TData, TValue>) {
   const [filtering, setFiltering] = useState("");
-  const [isDisabled, setIsDisabled] = useState(false);
   
   const table = useReactTable({
     data,

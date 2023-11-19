@@ -4,14 +4,12 @@ import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from '@/components/ui
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import axios, { AxiosError } from 'axios';
-import router, { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
 const CriarLivro = () => {
-  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
-  
-  
+  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);  
   const router = useRouter();  
   async function handleForm() {
     if(nome.length === 0){
@@ -21,7 +19,7 @@ const CriarLivro = () => {
         setIsDisabled(true);
         await axios.post('/api/criar_livro', {nome, dataPub, autores });
         toast.success('Livro Criado');
-        router.push('/');
+        router.push(`/livros`);
       }catch (error){
         if (axios.isAxiosError(error)) {
           const axiosError = error as AxiosError;

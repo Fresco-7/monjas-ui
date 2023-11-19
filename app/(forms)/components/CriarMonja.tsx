@@ -6,7 +6,6 @@ import { Textarea } from '@/components/ui/textarea';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
 import { Livro } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
@@ -16,7 +15,7 @@ import fetcher from '@/lib/fetcher';
 
 const CriarMonja = () => {
   const router = useRouter();
-  const [selectedLivro, setSelectedLivro] = useState(''); // Initialize with an empty string or a default value
+  const [selectedLivro, setSelectedLivro] = useState('');
 
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
   const { data, isLoading } = useSWR<Livro[]>("/api/get_livros", fetcher);  

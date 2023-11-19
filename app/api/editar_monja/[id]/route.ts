@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import prismadb from '@/lib/prismadb';
-import { Monja } from '@prisma/client';
 
 export async function POST(req: Request, context: any) {
     const dataJson = await req.json()

@@ -3,10 +3,9 @@ import { Button } from '@/components/ui/button';
 import {Card,CardContent, CardFooter,CardHeader,CardTitle,} from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
 import { Campo, Livro } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
@@ -14,45 +13,65 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
 
-const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
+const EditarCampoForm = ({id} : {id : any}) => {
   const router = useRouter();
-  const [selectedLivro, setSelectedLivro] = useState(livro.id);
-  
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
-  
   const { data, isLoading} = useSWR<Livro[]>("/api/get_livros", fetcher);  
-
+  const { data : Campo, isLoading : isLoadingCampo} = useSWR(`/api/get_campo/${id}`, fetcher); 
+  const [selectedLivro, setSelectedLivro] = useState("");
   const [formData, setFormData] = useState({
-    nrFolio: campo.nrFolio, 
-    datacaoReferencia: campo.datacaoReferencia,
-    filiacao: campo.filiacao,
-    linhagemFamiliar: campo.linhagemFamiliar,
-    nomeReligioso: campo.nomeReligioso,
-    idade: campo.idade,
-    dataNascimento: campo.idade,
-    tempoNoviciado: campo.tempoNoviciado,
-    naturalidadeBatismo: campo.naturalidadeBatismo,
-    pai: campo.idade,
-    avoPaterno: campo.avoMaterno,
-    avoPaterna: campo.avoPaterna,
-    mae: campo.mae,
-    avoMaterno: campo.avoMaterno,
-    avoMaterna: campo.avoMaterna,
-    freirasParentesco: campo.freirasParentesco,
-    observacoes: campo.observacoes,
-    irmaos: campo.irmaos,
+    nrFolio: '', 
+    datacaoReferencia: '',
+    filiacao: '',
+    linhagemFamiliar: '',
+    nomeReligioso: '',
+    idade: '',
+    dataNascimento: '',
+    tempoNoviciado: '',
+    naturalidadeBatismo: '',
+    pai: '',
+    avoPaterno: '',
+    avoPaterna: '',
+    mae: '',
+    avoMaterno: '',
+    avoMaterna: '',
+    freirasParentesco: '',
+    observacoes: '',
+    irmaos: '',
+    idLivro : '',
+    monjaId : '',
   });
-
+  React.useEffect(() => {
+    if (Campo) {
+      console.log("a");
+      const campo = Campo.campo as Campo;
+      const livro = Campo.livro as Livro;
+      setSelectedLivro(prevSelectLivro =>(livro.id));
+      const {
+        nrFolio, datacaoReferencia, filiacao, linhagemFamiliar, nomeReligioso, idade, dataNascimento,
+        tempoNoviciado, naturalidadeBatismo, pai, avoPaterno, avoPaterna, mae, avoMaterno, avoMaterna,
+        freirasParentesco, observacoes, irmaos, monjaId
+      } = campo;
+  
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        nrFolio, datacaoReferencia, filiacao, linhagemFamiliar, nomeReligioso, idade, dataNascimento,
+        tempoNoviciado, naturalidadeBatismo, pai, avoPaterno, avoPaterna, mae, avoMaterno, avoMaterna,
+        freirasParentesco, observacoes, irmaos, monjaId,
+      }));
+    }
+  }, [Campo]);
+  
 
 
 
   const handleForm = async () => {
     try{
       setIsDisabled(true);
-
-      const res = await axios.post(`/api/editar_campo/${campo.id}`, {"data" : formData, "idLivro" : selectedLivro} );
+      const res = await axios.post(`/api/editar_campo/${id}`, {"data" : formData, "idLivro" : selectedLivro} );
+      console.log(res);
       toast.success("Campo Atualizado");
-      router.push(`/monja/${campo.monjaId}`);
+      router.push(`/monja/${formData.monjaId}`);
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -65,7 +84,7 @@ const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
       setIsDisabled(false);
     }
   }
-    if(isLoading){
+    if(isLoading || isLoadingCampo){
       return(
         <>
         <div className="flex w-full h-screen justify-center">
@@ -80,7 +99,7 @@ const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
     <Card className='w-1/2 h-relative'>
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Editar Campo da <span className='text-sky-300 cursor-pointer underline' onClick={()=>{
-          router.push(`/monja/${campo.monjaId}`)
+          router.push(`/monja/${formData.monjaId}`)
         }}>Monja</span></CardTitle>
       </CardHeader>
         <CardContent className='grid grid-cols-2 gap-4 mt-2 '>
