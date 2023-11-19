@@ -1,57 +1,38 @@
 "use client"
 import LivroCard from "@/components/livro";
 import { Button } from "@/components/ui/button";
+import fetcher from "@/lib/fetcher";
 import { Livro } from "@prisma/client";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useQuery } from "react-query";
+import useSWR from "swr";
 
 
-const LivroPage = () => {
-  const router = useRouter();
 
-  const {data, isLoading, isError, refetch} = useQuery({
-    queryKey: ['livros'],
-    queryFn : async () => {
-        const {data} = await axios.get('/api/get_livros');
-        return data.books as Livro[]
-    }
-  })
-  const handleRefresh = () => {
-    refetch();
-  };
-
-
-  if(isLoading){
-    return(
-      <>
-
-      </>
-    )
-  }
+export default function LivroPage (){  
+  const { data, isLoading } = useSWR<Livro[]>("/api/get_livros", fetcher);  
   
-  if(data && !isLoading && !isError){
-    return (
-      <>
-        <div className="flex p-4 justify-center items-center">
-          <span className="font-bold text-5xl">Monjas</span>
+  return (
+    <>
+      <div className="flex p-4 justify-center items-center">
+        <span className="font-bold text-5xl">Monjas</span>
+      </div>
+      <div className="flex p-4 justify-center items-center ">
+        <div className="ml-3">
+          <Button>Criar Livro</Button>
         </div>
-        <div className="flex p-4 justify-center items-center ">
-            <div className="ml-3"><Button onClick={() =>{
-              router.push('/criar_livro');
-            }}>Criar Livro</Button></div>
-        </div>
-        <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-                {data.map((livro) => (
-                    <LivroCard key={livro.id} livro={livro} handleRefresh={handleRefresh} />
-                ))}
-        </div> 
-      </>
-    )
-  }else{
-    <div>
-      aa
-    </div>
-  }
+      </div>
+      { data && data.length > 0  &&(
+      <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {data.map((livro, index) => {
+          return <LivroCard livro={livro} key={index} />; // Render the LivroCard components
+        })}
+      </div> 
+      )
+    }
+    </>
+  )
 }
-export default LivroPage;
+
+
+
+
+

@@ -4,17 +4,17 @@ import LivroCard from "@/components/livro";
 import useSWR from 'swr';
 import fetcher from "@/lib/fetcher";
 import { Livro } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 
 export default function LivroPage({ params }: { params: { id: string } }) {
-  const { data, error } = useSWR(`/api/get_livro/${params.id}`, fetcher);
-
+  const { data, isLoading, error} = useSWR<Livro>(`/api/get_livro/${params.id}`, fetcher);  
+  const router = useRouter();
   if (error) {
     return <PageError />;
   }
-
   if (!data) {
-    return <div>Loading...</div>; // Add a loading state while fetching data
+    return <div></div>
   }
 
   return (

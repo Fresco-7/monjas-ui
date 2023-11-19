@@ -71,6 +71,9 @@ declare global{
         freirasParentesco? : string
         irmaos? : string
         observacoes? : string
+        
     }
+
+    
     
 }

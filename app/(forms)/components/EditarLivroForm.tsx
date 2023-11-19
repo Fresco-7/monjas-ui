@@ -12,13 +12,14 @@ import toast from 'react-hot-toast';
 const EditarLivroForm = ( {data} : {data : Livro}) => {
   const router = useRouter();
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
- 
-  async function handleForm() {
+  
+  const handleForm = async () => {
+    console.log("livor"+data);
     try{
       setIsDisabled(true);
       await axios.post('/api/editar_livro/'+data.id, {nome, dataPub, autores });
       toast.success('Livro Atualizado');
-      router.push('/');
+      router.push('/livros');
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;

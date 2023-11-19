@@ -23,11 +23,11 @@ const EditarMonja = ({data} : {data : Monja}) => {
 
     const handleForm = async () => {
       setIsDisabled(true);
+
       if(nome.length === 0){
         toast.error("Digite um nome");
 
       }
-
       try{
         await axios.post('/api/editar_monja/'+data.id, {nome});
         toast.success('Monja Atualizado');

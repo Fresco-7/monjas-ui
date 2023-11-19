@@ -4,7 +4,6 @@ import { Livro } from '@prisma/client';
 
 export async function POST(req: Request, context: any) {
     const dataJson = await req.json() as Livro
-
   try{
     const existingLivro = await prismadb.livro.findFirst({
       where : {

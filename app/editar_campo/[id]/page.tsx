@@ -1,39 +1,38 @@
+"use client"
 import React from 'react'
-import { Campo, Livro } from '@prisma/client';
 import EditarCampoForm from '@/app/(forms)/components/EditarCampoForm';
 import PageError from '@/components/errorPage';
+import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 
+export default function EditarCampo ({ params }: { params: { id: string } }){
+    const id = params.id
+    const { data, isLoading,error } = useSWR(`/api/get_campo/${id}`, fetcher); 
+   
 
-const getData = async (id : string) => {
-  const data = await fetch(`http://localhost:3000/api/get_campo/${id}`,{cache : 'no-store'});
-  if (data.status === 200) {
-    const campo = await data.json();
-    return campo
-  }else{
-    throw new Error('Erro ao buscar o Campo');
-  }
-}
-
-export default async function EditarCampo ({ params }: { params: { id: string } }){
-  try {
-    const res = await getData(params.id);
-
-    return (
-      <>
-        <div className='flex  justify-center h-full w-full '>
-          <div className='flex w-full h-full mt-10 justify-center'>
-            <EditarCampoForm campo={res.campo} livro={res.livro || null}/>
-          </div>
-        </div>
+    if(isLoading){
+      return <>
+      <div></div>
       </>
-    )
-  } catch (error) {
+    }
+    if(error)
     return(
       <>
         <PageError />
       </>
     )
+    
+    return (
+      <>
+        <div className='flex  justify-center h-full w-full '>
+          <div className='flex w-full h-full mt-10 justify-center'>
+            <EditarCampoForm campo={data.campo} livro={data.livro}/>
+          </div>
+        </div>
+      </>
+    )
+  
 
-  }
+  
 
 }

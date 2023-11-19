@@ -13,26 +13,20 @@ import { Textarea } from '@/components/ui/textarea';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
-
-import { Campo, Livro, Monja} from '@prisma/client';
+import {Livro, Monja} from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 
 const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
-  console.log(Monja);
   const router = useRouter();
   const [selectedLivro, setSelectedLivro] = useState('');  
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
-  const {data, isLoading, isError} = useQuery({
-    queryKey: ['books'],
-    queryFn : async () => {
-        const {data} = await axios.get('/api/get_livros');
-        return data.books as Livro []
-    }
-  })
+  const { data, isLoading } = useSWR<Livro[]>("/api/get_livros", fetcher);  
+
 
   const [formData, setFormData] = useState({
     nrFolio: '', 
@@ -59,7 +53,7 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
   const handleForm = async () => {
     try{
       setIsDisabled(true);
-      const res = await axios.post(`/api/criar_campo/${Monja.id}`, {"data" : formData} );
+      const res = await axios.post(`/api/criar_campo/${Monja.id}`, {"data" : formData, "idLivro" : selectedLivro} );
       toast.success("Campo criado");
       router.push('/');
     }catch (error){
@@ -78,7 +72,6 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
       return(
         <>
         <div className="flex w-full h-screen justify-center">
-          <p>Loading ...</p>
         </div>
         </>
       )
@@ -104,7 +97,10 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
               </div>
             </>
           ) 
-          :(<p>Livros indisponiveis crie um</p>)}
+          :(<><div className='flex items-center justify-center p-4'>
+          <span className='text-primary/80 text-xl sm:text-md'>Nenhum livro, crie um livro <Link href="/criar_livro"><span className='ml-1 text-primary/80 text-xl sm:text-md underline hover:cursor-pointer hover:text-primary'>aqui</span></Link> </span>
+        </div>
+      </>)}
               
        </div>
           <div className="flex flex-col space-y-1.5">

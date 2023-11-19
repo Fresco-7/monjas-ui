@@ -11,25 +11,16 @@ import { Campo, Livro } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 
 const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
   const router = useRouter();
-  const [selectedLivro, setSelectedLivro] = useState("");
-  useEffect(() => {
-    if (livro !== null) {
-      setSelectedLivro(livro.id);
-    }
-  }, [selectedLivro, livro]);
+  const [selectedLivro, setSelectedLivro] = useState(livro.id);
   
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
   
-  const {data, isLoading, isError} = useQuery({
-    queryKey: ['books'],
-    queryFn : async () => {
-        const {data} = await axios.get('/api/get_livros');
-        return data.books as Livro []
-    }
-  })
+  const { data, isLoading} = useSWR<Livro[]>("/api/get_livros", fetcher);  
 
   const [formData, setFormData] = useState({
     nrFolio: campo.nrFolio, 
@@ -61,7 +52,7 @@ const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
 
       const res = await axios.post(`/api/editar_campo/${campo.id}`, {"data" : formData, "idLivro" : selectedLivro} );
       toast.success("Campo Atualizado");
-      router.push('/');
+      router.push(`/monja/${campo.monjaId}`);
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -78,7 +69,7 @@ const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
       return(
         <>
         <div className="flex w-full h-screen justify-center">
-          <p>Loading ...</p>
+        
         </div>
         </>
       )
@@ -106,7 +97,10 @@ const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
               </div>
             </>
           ) 
-          :(<p>Livros indisponiveis crie um</p>)}
+          :(<><div className='flex items-center justify-center p-4'>
+          <span className='text-primary/80 text-xl sm:text-md'>Nenhum livro, crie um livro <Link href="/criar_livro"><span className='ml-1 text-primary/80 text-xl sm:text-md underline hover:cursor-pointer hover:text-primary'>aqui</span></Link> </span>
+        </div>
+      </>)}
               
        </div>
           <div className="flex flex-col space-y-1.5">

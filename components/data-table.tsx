@@ -35,6 +35,7 @@ import { Campo } from "@prisma/client"
 import { Value } from "@radix-ui/react-select"
 import axios, { AxiosError } from "axios"
 import toast from "react-hot-toast"
+import { useQueryClient } from "react-query"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -46,7 +47,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({columns,data} : DataTableProps<TData, TValue>) {
   const [filtering, setFiltering] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-
+  
   const table = useReactTable({
     data,
     columns,
@@ -57,26 +58,8 @@ export function DataTable<TData, TValue>({columns,data} : DataTableProps<TData, 
       globalFilter: filtering,
     },
     onGlobalFilterChange: setFiltering,
-
   });
-  const handleDownload = async (ids : any[]) => {
-    try{
-      setIsDisabled(true);
-
-      const res = await axios.get(`/api/download_monjas`, {"data" : ids});
-      toast.success("Download Iniciado");
-    }catch (error){
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response) {
-          const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-          toast.error(str)
-        }
-      }
-    }finally{
-      setIsDisabled(false);
-    }
-  }
+ 
 
   return (
     <>

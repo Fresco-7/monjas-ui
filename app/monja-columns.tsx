@@ -19,23 +19,22 @@ import axios, { AxiosError } from "axios";
 import Link from "next/link";
 
 
-
 export const columns: ColumnDef<Campo>[] = [
   {   
     accessorKey: "nrFolio",
     header: "NrFolio",
   },
   {   
-  accessorKey: "datacaoReferencia",
-  header: "Datação",
+    accessorKey: "datacaoReferencia",
+    header: "Datação",
   },
     {   
-        accessorKey: "filiacao",
-        header: "Filiação",
+      accessorKey: "filiacao",
+      header: "Filiação",
     },
     {   
-        accessorKey: "linhagemFamiliar",
-        header: "Linhagem Familiar",
+      accessorKey: "linhagemFamiliar",
+      header: "Linhagem Familiar",
     },
     {   
       accessorKey: "idade",
@@ -125,19 +124,21 @@ export const columns: ColumnDef<Campo>[] = [
                         <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction onClick={async () =>{
-                         try{
-                          const res = await axios.post(`/api/apagar_campo/${id}`);
-                          toast.success('Campo apagado');
-                        }catch (error){
-                          if (axios.isAxiosError(error)) {
-                            const axiosError = error as AxiosError;
-                            if (axiosError.response) {
-                              const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-                              toast.error(str);
+                          try{
+                            const res = await axios.post(`/api/apagar_campo/${id}`);
+                            toast.success('Campo apagado');
+                            window.location.reload();
+                          }catch (error){
+                            if (axios.isAxiosError(error)) {
+                              const axiosError = error as AxiosError;
+                              if (axiosError.response) {
+                                const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
+                                toast.error(str);
+                              }
                             }
                           }
-                        }
-                        }} className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
+                        }} 
+                        className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>

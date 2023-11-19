@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server'
 import prismadb from '@/lib/prismadb';
+export const dynamic = 'force-dynamic';
 
 
  
@@ -18,8 +19,7 @@ export async function GET(req: Request, context: any) {
                 }
             })
             if(campos){
-                console.log("Campos : ");
-                console.log(campos);
+
                 return NextResponse.json({ monja: existingMonja, campos: campos}, { status: 200 })  
             }else{
                 return NextResponse.json({ error: 'Data not found' }, { status: 404 })  

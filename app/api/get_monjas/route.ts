@@ -2,8 +2,7 @@ import prismadb from '@/lib/prismadb';
 import { Campo } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
-
-
+export const dynamic = 'force-dynamic';
 export async function GET() {
     try{
         const campos = await prismadb.campo.findMany();

@@ -8,15 +8,17 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import PageError from "./errorPage";
+
 interface LivroCardProps {
     livro: Livro;
-    handleRefresh?: () => void; // Making handleRefresh optional with the '?' symbol
 }
 
-const LivroCard: React.FC<LivroCardProps> = ({ livro, handleRefresh }) => {    const router = useRouter();
+const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {   
+    const router = useRouter();
+      
     if(livro.id){
-        
-    return(
+        return(
             <>
                 <Card>
                     <div className="flex justify-end pt-4 pr-4"> 
@@ -36,10 +38,9 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro, handleRefresh }) => {    c
                                 <AlertDialogAction onClick={async ()=>{
                                     try{
                                         const res = await axios.post(`/api/apagar_livro/${livro.id}`);
-                                        if(handleRefresh){
-                                            handleRefresh();
-                                        }
                                         toast.success('Livro apagado');
+                                        window.location.reload();
+                                        
                                     }catch (error){
                                         if (axios.isAxiosError(error)) {
                                             const axiosError = error as AxiosError;
@@ -62,7 +63,14 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro, handleRefresh }) => {    c
                     </CardHeader>
                 </Card>
             </>
-    )   }
+    )   
+    } else {
+        return (
+            <>
+                <PageError />
+            </>
+        );
+    }
 }
 
 export default LivroCard;
