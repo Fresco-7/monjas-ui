@@ -1,4 +1,5 @@
 import prismadb from '@/lib/prismadb';
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request, context: any) {        
   try {

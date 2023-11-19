@@ -9,7 +9,6 @@ import useSWR from "swr";
 
 export default function HomePage (){  
   const { data, isLoading, error : isError } = useSWR<tabelaRow[]>("/api/get_monjas", fetcher);  
-
   if(isLoading){
     return(
       <>

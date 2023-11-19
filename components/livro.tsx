@@ -40,7 +40,6 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {
                                         const res = await axios.post(`/api/apagar_livro/${livro.id}`);
                                         toast.success('Livro apagado');
                                         window.location.reload();
-                                        
                                     }catch (error){
                                         if (axios.isAxiosError(error)) {
                                             const axiosError = error as AxiosError;

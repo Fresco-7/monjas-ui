@@ -13,13 +13,13 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
 
-const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
+const CriarCampoForm = ({id} : {id : any}) => {
   const router = useRouter();
   const [selectedLivro, setSelectedLivro] = useState('');  
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
   const { data, isLoading } = useSWR<Livro[]>("/api/get_livros", fetcher);  
-
+  const {data : dataMonja, isLoading : isLoadingMonja} = useSWR<Monja>(`/api/get_monja/${id}`, fetcher);
 
   const [formData, setFormData] = useState({
     nrFolio: '', 
@@ -46,9 +46,9 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
   const handleForm = async () => {
     try{
       setIsDisabled(true);
-      const res = await axios.post(`/api/criar_campo/${Monja.id}`, {"data" : formData, "idLivro" : selectedLivro} );
+      const res = await axios.post(`/api/criar_campo/${id}`, {"data" : formData, "idLivro" : selectedLivro} );
       toast.success("Campo criado");
-      router.push(`/monja/${Monja.id}`);
+      router.push(`/monja/${id}`);
     }catch (error){
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -71,7 +71,7 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
     <>
     <Card className='w-1/2 h-relative'>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl"> Monjaaa </CardTitle>
+      <CardTitle className="text-2xl">Editar Campo da <Link href={`/monja/${id}`}><span className='text-sky-300 cursor-pointer underline'>Monja</span></Link></CardTitle>
       </CardHeader>
         <CardContent className='grid grid-cols-2 gap-4 mt-2 '>
         <div className="flex flex-col space-y-1.5 justify-center items-left col-span-2 mb-4 items-center">

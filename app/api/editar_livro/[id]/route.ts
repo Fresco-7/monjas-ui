@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import prismadb from '@/lib/prismadb';
 import { Livro } from '@prisma/client';
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request, context: any) {
     const dataJson = await req.json() as Livro

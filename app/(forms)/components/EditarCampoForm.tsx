@@ -98,9 +98,7 @@ const EditarCampoForm = ({id} : {id : any}) => {
     <>
     <Card className='w-1/2 h-relative'>
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Editar Campo da <span className='text-sky-300 cursor-pointer underline' onClick={()=>{
-          router.push(`/monja/${formData.monjaId}`)
-        }}>Monja</span></CardTitle>
+        <CardTitle className="text-2xl">Editar Campo da <Link href={`/monja/${formData.monjaId}`}><span className='text-sky-300 cursor-pointer underline'>Monja</span></Link></CardTitle>
       </CardHeader>
         <CardContent className='grid grid-cols-2 gap-4 mt-2 '>
         <div className="flex flex-col space-y-1.5 justify-center items-left col-span-2 mb-4 items-center">
