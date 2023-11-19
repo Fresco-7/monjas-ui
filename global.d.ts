@@ -24,6 +24,7 @@ declare global{
         observacoes: string;
         nrFolio : string;
         datacaoReferencia : string;
+        idLivro : string;
     }
 
     type MonjaTabelaRow = {

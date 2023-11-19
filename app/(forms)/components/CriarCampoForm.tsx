@@ -10,7 +10,7 @@ import {
   } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
@@ -182,7 +182,7 @@ const CriarCampoForm = ({Monja} : {Monja:Monja}) => {
             </div>
         </CardContent>
       <CardFooter>
-        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Atualizar Campo</Button>
+        <Button className="w-full" disabled={isDisabled} onClick={handleForm}>Criar Campo</Button>
       </CardFooter>
     </Card>
     </>

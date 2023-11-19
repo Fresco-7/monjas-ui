@@ -1,25 +1,18 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from '@/components/ui/card';
+import {Card,CardContent, CardFooter,CardHeader,CardTitle,} from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import { Campo, Livro, Referencia } from '@prisma/client';
+import { Campo, Livro } from '@prisma/client';
 import {SelectLivro} from './SelectLivro';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia: Referencia, livro : Livro}) => {
+const EditarCampoForm = ({campo,  livro} : {campo : Campo, livro : Livro}) => {
   const router = useRouter();
   const [selectedLivro, setSelectedLivro] = useState("");
   useEffect(() => {
@@ -39,9 +32,8 @@ const EditarCampoForm = ({campo, referencia, livro} : {campo : Campo, referencia
   })
 
   const [formData, setFormData] = useState({
-
-    nrFolio: referencia.nrFolio, 
-    datacaoReferencia: referencia.datacaoReferencia,
+    nrFolio: campo.nrFolio, 
+    datacaoReferencia: campo.datacaoReferencia,
     filiacao: campo.filiacao,
     linhagemFamiliar: campo.linhagemFamiliar,
     nomeReligioso: campo.nomeReligioso,

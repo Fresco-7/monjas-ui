@@ -12,29 +12,15 @@ export async function POST(req: Request, context: any) {
         });
     
         if(existingCampo){
-            const referencia = await prismadb.referencia.findFirst({
-              where : {
-                id : existingCampo.referenciaId
-              }
-            })
-            if(referencia){
                 try{
-                    await prismadb.referencia.update({
-                        where: {
-                          id: existingCampo.referenciaId,
-                        },
-                        data: {
-                            datacaoReferencia : campo.datacaoReferencia,
-                            nrFolio : campo.nrFolio,
-                            livroId : dataJson.idLivro
-                        },
-                    })
                     await prismadb.campo.update({
                         where : {
                             id : existingCampo.id,
                         },
                         data : 
                         {
+                            nrFolio : campo.nrFolio,
+                            datacaoReferencia : campo.datacaoReferencia,
                             filiacao : campo.filiacao,
                             linhagemFamiliar : campo.linhagemFamiliar,
                             nomeReligioso : campo.nomeReligioso,
@@ -51,16 +37,15 @@ export async function POST(req: Request, context: any) {
                             tempoNoviciado : campo.tempoNoviciado,
                             naturalidadeBatismo : campo.naturalidadeBatismo,
                             irmaos : campo.irmaos,
-
+                            livroId : dataJson.idLivro
                         }
                     })
                 }catch(e){
                     return new Response(JSON.stringify(`Algo correu mal: ${e}`) ,{status: 404});
                 }
+            }else{
+                return new Response(JSON.stringify("Campo não existe") ,{status: 404});
             }
-        }else{
-            return new Response(JSON.stringify("Campo não existe") ,{status: 404});
-        }
     
     }catch(error){
         return new Response(JSON.stringify(`Algo correu mal: ${error}`) ,{status: 404});

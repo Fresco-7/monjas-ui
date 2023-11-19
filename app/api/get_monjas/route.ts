@@ -12,7 +12,7 @@ export async function GET() {
               id: true,
               nome : true
             },
-        });        
+        });       
         const camposJson = [];
         for (const monja of monjas) {
             const camposDaMonja :  Campo[] = campos.filter(campo => campo.monjaId === monja.id);
@@ -40,6 +40,7 @@ export async function GET() {
         return NextResponse.json(camposJson, {status : 200});
 
     }catch (error){
+        console.log(error);
         return NextResponse.json({ error: 'Error' }, { status: 404 })      
     }
 }

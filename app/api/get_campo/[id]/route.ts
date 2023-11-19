@@ -9,23 +9,16 @@ export async function GET(req: Request, context: any) {
       }
     });
     if(existingCampo){
-      const referencia = await prismadb.referencia.findFirst({
+      if(existingCampo.livroId){
+      const livro = await prismadb.livro.findFirst({
         where : {
-          id : existingCampo.referenciaId
+          id : existingCampo.livroId
         }
       })
-      if(referencia?.livroId){
-        const livro = await prismadb.livro.findFirst({
-          where : {
-            id : referencia.livroId
-          }
-        })
-        return NextResponse.json({ campo : existingCampo, referencia : referencia, livro : livro }, { status: 200 })
+        return NextResponse.json({ campo : existingCampo, livro : livro }, { status: 200 })
+      }
+      return NextResponse.json({ campo : existingCampo}, { status: 200 })
 
-      } 
-      return NextResponse.json({ campo : existingCampo, referencia : referencia }, { status: 200 })
-    }else{
-      return NextResponse.json({ error: 'Data not found' }, { status: 404 })  
     }
   }catch(e){
     return NextResponse.json({ error: 'Data not found' }, { status: 404 })  

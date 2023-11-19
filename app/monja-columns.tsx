@@ -21,6 +21,14 @@ import Link from "next/link";
 
 
 export const columns: ColumnDef<Campo>[] = [
+  {   
+    accessorKey: "nrFolio",
+    header: "NrFolio",
+  },
+  {   
+  accessorKey: "datacaoReferencia",
+  header: "Datação",
+  },
     {   
         accessorKey: "filiacao",
         header: "Filiação",

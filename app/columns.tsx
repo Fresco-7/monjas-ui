@@ -153,10 +153,7 @@ export const columns: ColumnDef<tabelaRow>[] = [
                         async () =>{
                          try{
                           const res = await axios.post(`/api/apagar_monja/${id}`);
-                          await useQueryClient().invalidateQueries({ queryKey: ['tabelaRow'] }); // Invalidates the query cache
-                          await useQueryClient().refetchQueries({ queryKey: ['tabelaRow'] } ); // Refetches the 'tabelaRow' query
                           toast.success('Monja apagada');
-                 
                         }catch (error){
                           if (axios.isAxiosError(error)) {
                             const axiosError = error as AxiosError;

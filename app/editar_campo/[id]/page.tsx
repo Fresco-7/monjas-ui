@@ -22,7 +22,7 @@ export default async function EditarCampo ({ params }: { params: { id: string } 
       <>
         <div className='flex  justify-center h-full w-full '>
           <div className='flex w-full h-full mt-10 justify-center'>
-            <EditarCampoForm campo={res.campo} referencia={res.referencia} livro={res.livro || null}/>
+            <EditarCampoForm campo={res.campo} livro={res.livro || null}/>
           </div>
         </div>
       </>

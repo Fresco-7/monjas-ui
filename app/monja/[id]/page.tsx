@@ -21,7 +21,7 @@ export default async function MonjaPage({ params }: { params: { id: string } }) 
           <span className="font-bold text-5xl">Monja : {data?.monja.nome}</span>
         </div>
         <div className="p-10">
-          <SingleMonja data={data} />
+          <SingleMonja data={data} id={params.id}/>
         </div>
       </>
     )
