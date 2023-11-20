@@ -77,24 +77,17 @@ export const columns: ColumnDef<Campo>[] = [
       header: "Pai",
     },
     {   
-      accessorKey: "avoPaterno",
-      header: "Avô Paterno",
+      accessorKey: "avosPaternos",
+      header: "Avôs Paternos",
     },    
-    {   
-      accessorKey: "avoPaterna",
-      header: "Avó Paterna",
-    },    
+ 
     {   
       accessorKey: "mae",
       header: "Mãe",
     },  
     {   
-      accessorKey: "avoMaterno",
-      header: "Avô Materno",
-    },
-    {   
-      accessorKey: "avoMaterna",
-      header: "Avó Materna",
+      accessorKey: "avosMaternos",
+      header: "Avôs Maternos",
     },
     {   
       accessorKey: "freirasParentesco",

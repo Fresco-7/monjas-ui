@@ -1,33 +1,12 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui/checkbox"
 import RowSelect from "@/components/rowSelect"
 import { Monja } from "@prisma/client"
 
 
 export const columns: ColumnDef<tabelaRow>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-    <Checkbox
-      checked={table.getIsAllPageRowsSelected()}
-      onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-      aria-label="Select all"
-      className="translate-y-[2px]"
-    />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+  
     {
         accessorKey: "nome",
         header: "Nome",
@@ -73,25 +52,17 @@ export const columns: ColumnDef<tabelaRow>[] = [
       header: "Pai",
     },
     {   
-      accessorKey: "avoPaterno",
-      header: "Avô Paterno",
-    },    
-    {   
-      accessorKey: "avoPaterna",
-      header: "Avó Paterna",
-    },    
+      accessorKey: "avosPaternos",
+      header: "Avôs Paternos",
+    },       
     {   
       accessorKey: "mae",
       header: "Mãe",
     },  
     {   
-      accessorKey: "avoMaterno",
-      header: "Avô Materno",
-    },
-    {   
-      accessorKey: "avoMaterna",
-      header: "Avó Materna",
-    },
+      accessorKey: "avosMaternos",
+      header: "Avôs Maternos",
+    }, 
     {   
       accessorKey: "freirasParentesco",
       header: "Freiras Parentesco",

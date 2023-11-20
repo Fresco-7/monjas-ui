@@ -59,6 +59,7 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {
                             </AlertDialogContent>
                         </AlertDialog>
                         <Link href={`/editar_livro/${livro.id}`} className="mr-2"><Button className="w-16" >Editar</Button></Link>
+                        <Link href={`/monjas/${livro.id}`} className="mr-2"><Button className="w-16" >Monjas</Button></Link>
                     </div>
                 <CardHeader>
                     <CardTitle className="text-4xl flex justify-center">Nome : {livro.nome}</CardTitle>
