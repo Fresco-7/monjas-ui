@@ -21,14 +21,14 @@ export default function LivroPage (){
         </div>
       </div>
       { data && data.length > 0  ?(
-      <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {data.map((livro, index) => {
           return <LivroCard livro={livro} key={index} />
         })}
       </div>
       ):(<div className='flex  justify-center h-full w-full '>
         <div className='flex flex-col w-full h-full mt-10 justify-center items-center'>
-          <span className='text-md bold'>Sem livros dísponiveis</span>
+          <span className='text-md bold'>Sem livros disponiveis</span>
           <Link href="/"><span className='text-blue-300 cursor-pointer'>pagina inicial</span></Link>
         </div>
       </div>)}

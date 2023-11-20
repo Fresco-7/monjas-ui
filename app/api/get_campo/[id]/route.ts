@@ -24,6 +24,4 @@ export async function GET(req: Request, context: any) {
   }catch(e){
     return NextResponse.json({ error: 'Data not found' }, { status: 404 })  
   }
-  
-
 }

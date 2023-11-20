@@ -7,7 +7,7 @@ import {AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, A
 import Link from "next/link";
 import toast from "react-hot-toast";
 import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import PageError from "./errorPage";
 
 interface LivroCardProps {
@@ -16,6 +16,7 @@ interface LivroCardProps {
 
 const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {   
     const router = useRouter();
+    const path = usePathname();
       
     if(livro.id){
         return(
@@ -39,7 +40,11 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {
                                     try{
                                         const res = await axios.post(`/api/apagar_livro/${livro.id}`);
                                         toast.success('Livro apagado');
-                                        window.location.reload();
+                                        if(path != '/livros'){
+                                            router.push('/')
+                                        }else{
+                                            window.location.reload();
+                                        }
                                     }catch (error){
                                         if (axios.isAxiosError(error)) {
                                             const axiosError = error as AxiosError;
@@ -53,7 +58,7 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
-                        <Link href={`/editar_livro/${livro.id}`}><Button className="w-16" >Editar</Button></Link>
+                        <Link href={`/editar_livro/${livro.id}`} className="mr-2"><Button className="w-16" >Editar</Button></Link>
                     </div>
                 <CardHeader>
                     <CardTitle className="text-4xl flex justify-center">Nome : {livro.nome}</CardTitle>

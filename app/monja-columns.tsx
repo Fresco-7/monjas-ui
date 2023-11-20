@@ -20,6 +20,14 @@ import Link from "next/link";
 
 
 export const columns: ColumnDef<Campo>[] = [
+  {
+    accessorKey: "livroDoLivro",
+    header: "livroDoLivro",
+  },
+  {
+    accessorKey: "pagina",
+    header: "Pagina",
+  },
   {   
     accessorKey: "nrFolio",
     header: "NrFolio",
@@ -47,6 +55,10 @@ export const columns: ColumnDef<Campo>[] = [
     {   
       accessorKey: "tempoNoviciado",
       header: "Tempo de Noviciado",
+    },
+    {
+      accessorKey: "nomeSecular",
+      header: "Nome Secular",
     },
     {   
       accessorKey: "nomeReligioso",
@@ -96,6 +108,7 @@ export const columns: ColumnDef<Campo>[] = [
       id: "actions",
       cell: ({ row }) => {
         const id = row.original.id
+        const livroId = row.original.livroId
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -106,6 +119,10 @@ export const columns: ColumnDef<Campo>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Ações</DropdownMenuLabel>
+              <Link href={`/livro/${livroId}`}><DropdownMenuItem>
+                Ver Livro
+              </DropdownMenuItem></Link>
+              <DropdownMenuSeparator />
               <Link href={`/editar_campo/${id}`}><DropdownMenuItem>
                 Editar Campo
               </DropdownMenuItem></Link>

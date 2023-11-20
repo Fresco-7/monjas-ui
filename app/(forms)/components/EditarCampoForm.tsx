@@ -40,36 +40,42 @@ const EditarCampoForm = ({id} : {id : any}) => {
     irmaos: '',
     idLivro : '',
     monjaId : '',
+    pagina  : '',
+    nomeSecular : '',
+    livroDoLivro : '', 
   });
+
   React.useEffect(() => {
     if (Campo) {
-      console.log("a");
       const campo = Campo.campo as Campo;
       const livro = Campo.livro as Livro;
-      setSelectedLivro(prevSelectLivro =>(livro.id));
+      if(livro){
+        setSelectedLivro(livro.id);
+      }
+      
+
       const {
         nrFolio, datacaoReferencia, filiacao, linhagemFamiliar, nomeReligioso, idade, dataNascimento,
         tempoNoviciado, naturalidadeBatismo, pai, avoPaterno, avoPaterna, mae, avoMaterno, avoMaterna,
-        freirasParentesco, observacoes, irmaos, monjaId
+        freirasParentesco, observacoes, irmaos, monjaId, pagina, livroDoLivro, nomeSecular
       } = campo;
   
       setFormData(prevFormData => ({
         ...prevFormData,
         nrFolio, datacaoReferencia, filiacao, linhagemFamiliar, nomeReligioso, idade, dataNascimento,
         tempoNoviciado, naturalidadeBatismo, pai, avoPaterno, avoPaterna, mae, avoMaterno, avoMaterna,
-        freirasParentesco, observacoes, irmaos, monjaId,
+        freirasParentesco, observacoes, irmaos, monjaId, pagina, livroDoLivro, nomeSecular
       }));
     }
-  }, [Campo]);
-  
 
+
+  }, [Campo, selectedLivro]);
 
 
   const handleForm = async () => {
     try{
       setIsDisabled(true);
       const res = await axios.post(`/api/editar_campo/${id}`, {"data" : formData, "idLivro" : selectedLivro} );
-      console.log(res);
       toast.success("Campo Atualizado");
       router.push(`/monja/${formData.monjaId}`);
     }catch (error){
@@ -88,7 +94,7 @@ const EditarCampoForm = ({id} : {id : any}) => {
       return(
         <>
         <div className="flex w-full h-screen justify-center">
-        
+
         </div>
         </>
       )
@@ -120,6 +126,14 @@ const EditarCampoForm = ({id} : {id : any}) => {
       </>)}
               
        </div>
+       <div className="flex flex-col space-y-1.5">
+                <Label >Pagina</Label>
+                <Textarea value={formData.pagina} onChange={(e) => setFormData({ ...formData, pagina: e.target.value })} />        
+          </div>
+          <div className="flex flex-col space-y-1.5">
+                <Label >Livro do Livro</Label>
+                <Textarea value={formData.livroDoLivro} onChange={(e) => setFormData({ ...formData, livroDoLivro: e.target.value })} />        
+          </div>
           <div className="flex flex-col space-y-1.5">
                 <Label >Numero Folio</Label>
                 <Textarea value={formData.nrFolio} onChange={(e) => setFormData({ ...formData, nrFolio: e.target.value })} />        
@@ -136,6 +150,10 @@ const EditarCampoForm = ({id} : {id : any}) => {
             <div className="flex flex-col space-y-1.5">
                 <Label >Linhagem Familiar</Label>
                 <Textarea value={formData.linhagemFamiliar} onChange={(e) => setFormData({ ...formData, linhagemFamiliar: e.target.value })} />        
+            </div>
+            <div className="flex flex-col space-y-1.5">
+                <Label >Nome secular</Label>
+                <Textarea value={formData.nomeSecular} onChange={(e) => setFormData({ ...formData, nomeSecular: e.target.value })} />        
             </div>
             <div className="flex flex-col space-y-1.5">
                 <Label >Nome Religioso</Label>

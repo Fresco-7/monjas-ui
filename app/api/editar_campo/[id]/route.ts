@@ -3,7 +3,6 @@ import prismadb from '@/lib/prismadb';
 export async function POST(req: Request, context: any) {
     const dataJson = await req.json();
     const campo = dataJson.data
-    console.log(dataJson);
 
     try {
         const existingCampo = await prismadb.campo.findFirst({
@@ -13,6 +12,7 @@ export async function POST(req: Request, context: any) {
         });
     
         if(existingCampo){
+                
                 try{
                     await prismadb.campo.update({
                         where : {
@@ -38,7 +38,10 @@ export async function POST(req: Request, context: any) {
                             tempoNoviciado : campo.tempoNoviciado,
                             naturalidadeBatismo : campo.naturalidadeBatismo,
                             irmaos : campo.irmaos,
-                            livroId : dataJson.idLivro
+                            livroId : dataJson.idLivro,
+                            pagina : campo.pagina,
+                            nomeSecular : campo.nomeSecular,
+                            livroDoLivro : campo.livroDoLivro,
                         }
                     })
                 }catch(e){

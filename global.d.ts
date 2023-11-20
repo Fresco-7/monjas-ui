@@ -24,6 +24,9 @@ declare global{
         observacoes: string;
         nrFolio : string;
         datacaoReferencia : string;
+        pagina            : string;
+        nomeSecular       : string;
+        livroDoLivro      : string;
         idLivro : string;
     }
 
@@ -48,7 +51,11 @@ declare global{
         monjaId? : string
         nrFolio? : string
         datacaoReferencia? : string
+        pagina?            : string
+        nomeSecular?       : string
+        livroDoLivro?      : string
         livro? : string
+        
     }
 
     type tabelaRow = {
@@ -71,7 +78,7 @@ declare global{
         freirasParentesco? : string
         irmaos? : string
         observacoes? : string
-        
+        nomeSecular?       : string
     }
 
     

@@ -36,6 +36,9 @@ export function RowSelect( {monja} : {monja : Monja}) {
               >
                 Copiar id Monja
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <Link href={`/monja/${monja.id}`}><DropdownMenuItem >Ver Monja</DropdownMenuItem></Link>
+              <Link href={`/editar_monja/${monja.id}`}><DropdownMenuItem >Editar Monja</DropdownMenuItem></Link>
               <div className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent pb-2">
               <AlertDialog >
                     <AlertDialogTrigger className="cursor-select" asChild>
@@ -70,9 +73,6 @@ export function RowSelect( {monja} : {monja : Monja}) {
                     </AlertDialogContent>
                 </AlertDialog>
               </div>
-              <DropdownMenuSeparator />
-              <Link href={`/monja/${monja.id}`}><DropdownMenuItem >Ver Monja</DropdownMenuItem></Link>
-              <Link href={`/editar_monja/${monja.id}`}><DropdownMenuItem >Editar Monja</DropdownMenuItem></Link>
             </DropdownMenuContent>
           </DropdownMenu>
     )

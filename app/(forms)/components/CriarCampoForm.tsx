@@ -41,6 +41,9 @@ const CriarCampoForm = ({id} : {id : any}) => {
     observacoes: '',
     irmaos: '',
     idLivro : '',
+    pagina  : '',
+    nomeSecular : '',
+    livroDoLivro : '', 
   });
 
   const handleForm = async () => {
@@ -94,6 +97,15 @@ const CriarCampoForm = ({id} : {id : any}) => {
               
        </div>
           <div className="flex flex-col space-y-1.5">
+                <Label >Pagina</Label>
+                <Textarea value={formData.pagina} onChange={(e) => setFormData({ ...formData, pagina: e.target.value })} />        
+          </div>
+          <div className="flex flex-col space-y-1.5">
+                <Label >Livro do Livro</Label>
+                <Textarea value={formData.livroDoLivro} onChange={(e) => setFormData({ ...formData, livroDoLivro: e.target.value })} />        
+          </div>
+
+          <div className="flex flex-col space-y-1.5">
                 <Label >Numero Folio</Label>
                 <Textarea value={formData.nrFolio} onChange={(e) => setFormData({ ...formData, nrFolio: e.target.value })} />        
           </div>
@@ -109,6 +121,10 @@ const CriarCampoForm = ({id} : {id : any}) => {
             <div className="flex flex-col space-y-1.5">
                 <Label >Linhagem Familiar</Label>
                 <Textarea value={formData.linhagemFamiliar} onChange={(e) => setFormData({ ...formData, linhagemFamiliar: e.target.value })} />        
+            </div>
+            <div className="flex flex-col space-y-1.5">
+                <Label >Nome secular</Label>
+                <Textarea value={formData.nomeSecular} onChange={(e) => setFormData({ ...formData, nomeSecular: e.target.value })} />        
             </div>
             <div className="flex flex-col space-y-1.5">
                 <Label >Nome Religioso</Label>

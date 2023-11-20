@@ -24,7 +24,6 @@ model Campo {
   dataNascimento    String
   tempoNoviciado    String
   naturalidadeBatismo String
-  qualidadeCardgo String
   pai               String
   avoPaterno        String
   avoPaterna        String
@@ -38,6 +37,9 @@ model Campo {
   monjaId           String      @db.ObjectId
   nrFolio           String
   datacaoReferencia String
+  pagina            String
+  nomeSecular       String
+  livroDoLivro      String
   livro             Livro?      @relation(fields: [livroId], references: [id])
   livroId           String?     @db.ObjectId
 }

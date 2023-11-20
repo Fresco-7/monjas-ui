@@ -2,12 +2,14 @@ import { NextResponse } from 'next/server'
 import prismadb from '@/lib/prismadb';
  
 export async function GET(req: Request, context: any) {
+
     try{
         const existingLivro = await prismadb.livro.findFirst({
             where : {
                 id: context.params.id
             }        
         });
+
         if(existingLivro){
             return NextResponse.json(existingLivro, { status: 200 })  
         }else{

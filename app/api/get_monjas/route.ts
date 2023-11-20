@@ -12,10 +12,11 @@ export async function GET() {
               nome : true
             },
         });       
+        
         const camposJson = [];
         for (const monja of monjas) {
             const camposDaMonja :  Campo[] = campos.filter(campo => campo.monjaId === monja.id);
-            let row : tabelaRow = { nome : monja.nome, id : monja.id, tempoDeNoviciado : "", avoMaterna : "", avoMaterno : "", avoPaterna : "", avoPaterno : "", dataNascimento : "", nomeReligioso : "", idade : "", irmaos : "", observacoes : "", pai : "", freirasParentesco : "", filiacao : "", linhagemFamiliar : "", mae : "", naturalidadeBatismo : "" }
+            let row : tabelaRow = { nome : monja.nome, id : monja.id, tempoDeNoviciado : "", avoMaterna : "", avoMaterno : "", avoPaterna : "", avoPaterno : "", dataNascimento : "", nomeReligioso : "", idade : "", irmaos : "", observacoes : "", pai : "", freirasParentesco : "", filiacao : "", linhagemFamiliar : "", mae : "", naturalidadeBatismo : "", nomeSecular : ""}
             camposDaMonja.forEach((campo) => {
                 campo.tempoNoviciado != "" ? row.tempoDeNoviciado += campo.tempoNoviciado + " ": ""
                 campo.avoMaterna != "" ? row.avoMaterna += campo.avoMaterna + " " : ""
@@ -33,14 +34,15 @@ export async function GET() {
                 campo.nomeReligioso != "" ? row.nomeReligioso += campo.nomeReligioso + " ": ""
                 campo.observacoes != "" ? row.observacoes += campo.observacoes + " ": ""
                 campo.pai != "" ? row.pai += campo.pai+ " " : ""
+                campo.nomeSecular != "" ? row.nomeSecular += campo.nomeSecular + " ": ""
             });
             camposJson.push(row);
         }
+        
         return NextResponse.json(camposJson, {status : 200});
 
     }catch (error){
-        console.log(error);
-        return NextResponse.json({ error: 'Error' }, { status: 404 })      
+        return NextResponse.json({ error: error }, { status: 404 })      
     }
 }
 

@@ -12,11 +12,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Livro } from "@prisma/client"
+import { useEffect, useState } from "react"
 
 export function SelectLivro({livros, onLivroSelect, livroId} : {livros : Livro[], onLivroSelect: (livroId: string) => void, livroId? : string }) {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState(livroId);
-
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState("");
+  
+  useEffect(() => {
+    if(livroId){
+      setValue(livroId);
+    }  
+    
+  }, [livroId]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
