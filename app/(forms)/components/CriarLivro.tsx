@@ -59,7 +59,7 @@ const CriarLivro = () => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" onClick={handleForm}>Criar Fonte/Livro</Button>
+          <Button className="w-full" disabled={isDisabled} onClick={handleForm} >Criar Fonte/Livro</Button>
         </CardFooter>
       </Card>
     </>
