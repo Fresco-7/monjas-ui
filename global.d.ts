@@ -16,11 +16,9 @@ declare global{
         naturalidadeBatismo: string;
         qualidadeCargo : string;
         pai: string;
-        avoPaterno: string;
-        avoPaterna: string;
+        avosPaternos: string;
         mae: string;
-        avoMaterno: string;
-        avoMaterna : string;
+        avosMaternos: string;
         freirasParentesco: string;
         observacoes: string;
         nrFolio : string;
@@ -42,11 +40,9 @@ declare global{
         naturalidadeBatismo? : string
         pai? : string
         qualidadeCargo? : string
-        avoPaterno? : string
-        avoPaterna? : string
+        avosPaternos? : string
         mae? : string
-        avoMaterno? : string
-        avoMaterna? : string
+        avosMaternos? : string
         freirasParentesco? : string
         irmaos? : string
         observacoes? : string
@@ -73,15 +69,13 @@ declare global{
         naturalidadeBatismo? : string
         pai? : string
         qualidadeCargo? : string
-        avoPaterno? : string
-        avoPaterna? : string
+        avosPaternos? : string
         mae? : string
-        avoMaterno? : string
-        avoMaterna? : string
+        avosMaternos? : string
         freirasParentesco? : string
         irmaos? : string
         observacoes? : string
-        nomeSecular?       : string
+        nomeSecular? : string
     }
 
     

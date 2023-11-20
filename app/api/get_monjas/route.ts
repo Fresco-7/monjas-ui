@@ -16,13 +16,11 @@ export async function GET() {
         const camposJson = [];
         for (const monja of monjas) {
             const camposDaMonja :  Campo[] = campos.filter(campo => campo.monjaId === monja.id);
-            let row : tabelaRow = { nome : monja.nome, id : monja.id, tempoDeNoviciado : "", avoMaterna : "", avoMaterno : "", avoPaterna : "", avoPaterno : "", dataNascimento : "", nomeReligioso : "", idade : "", irmaos : "", observacoes : "", pai : "", freirasParentesco : "", filiacao : "", linhagemFamiliar : "", mae : "", naturalidadeBatismo : "", nomeSecular : "", qualidadeCargo : ""}
+            let row : tabelaRow = { nome : monja.nome, id : monja.id, tempoDeNoviciado : "",  avosMaternos : "", avosPaternos : "", dataNascimento : "", nomeReligioso : "", idade : "", irmaos : "", observacoes : "", pai : "", freirasParentesco : "", filiacao : "", linhagemFamiliar : "", mae : "", naturalidadeBatismo : "", nomeSecular : "", qualidadeCargo : ""}
             camposDaMonja.forEach((campo) => {
                 campo.tempoNoviciado != "" ? row.tempoDeNoviciado += campo.tempoNoviciado + " ": ""
-                campo.avoMaterna != "" ? row.avoMaterna += campo.avoMaterna + " " : ""
-                campo.avoMaterno != "" ? row.avoMaterno += campo.avoMaterno + " ": ""
-                campo.avoPaterna != "" ? row.avoPaterna += campo.avoPaterna + " ": ""
-                campo.avoPaterno != "" ? row.avoPaterno += campo.avoPaterno : ""
+                campo.avosMaternos != "" ? row.avosMaternos += campo.avosMaternos + " ": ""
+                campo.avosPaternos != "" ? row.avosPaternos += campo.avosPaternos : ""
                 campo.dataNascimento != "" ? row.dataNascimento += campo.dataNascimento + " ": ""
                 campo.filiacao != "undif" ? row.filiacao += campo.filiacao + " ": ""
                 campo.freirasParentesco != "" ? row.freirasParentesco += campo.freirasParentesco + " ": ""

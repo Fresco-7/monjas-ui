@@ -26,11 +26,9 @@ model Campo {
   naturalidadeBatismo String
   qualidadeCargo String
   pai               String
-  avoPaterno        String
-  avoPaterna        String
+  avosPaternos        String
   mae               String
-  avoMaterno        String
-  avoMaterna        String
+  avosMaternos        String
   freirasParentesco String
   irmaos            String
   observacoes       String

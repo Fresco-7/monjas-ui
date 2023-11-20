@@ -19,8 +19,10 @@ export async function GET(req: Request, context: any) {
         return NextResponse.json({ campo : existingCampo, livro : livro }, { status: 200 })
       }
       return NextResponse.json({ campo : existingCampo}, { status: 200 })
-
+    }else{
+      return NextResponse.json({ error: 'Data not found' }, { status: 404 }) 
     }
+    
   }catch(e){
     return NextResponse.json({ error: 'Data not found' }, { status: 404 })  
   }

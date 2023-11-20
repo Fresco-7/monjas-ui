@@ -33,11 +33,9 @@ const CriarCampoForm = ({id} : {id : any}) => {
     naturalidadeBatismo: '',
     pai: '',
     qualidadeCargo : "",
-    avoPaterno: '',
-    avoPaterna: '',
+    avosPaternos: '',
     mae: '',
-    avoMaterno: '',
-    avoMaterna: '',
+    avosMaternos: '',
     freirasParentesco: '',
     observacoes: '',
     irmaos: '',
@@ -97,15 +95,14 @@ const CriarCampoForm = ({id} : {id : any}) => {
       </>)}
               
        </div>
+       <div className="flex flex-col space-y-1.5">
+                <Label >Livro do Livro</Label>
+                <Textarea value={formData.livroDoLivro} onChange={(e) => setFormData({ ...formData, livroDoLivro: e.target.value })} />        
+          </div>
           <div className="flex flex-col space-y-1.5">
                 <Label >Pagina</Label>
                 <Textarea value={formData.pagina} onChange={(e) => setFormData({ ...formData, pagina: e.target.value })} />        
           </div>
-          <div className="flex flex-col space-y-1.5">
-                <Label >Livro do Livro</Label>
-                <Textarea value={formData.livroDoLivro} onChange={(e) => setFormData({ ...formData, livroDoLivro: e.target.value })} />        
-          </div>
-
           <div className="flex flex-col space-y-1.5">
                 <Label >Numero Folio</Label>
                 <Textarea value={formData.nrFolio} onChange={(e) => setFormData({ ...formData, nrFolio: e.target.value })} />        
@@ -118,7 +115,14 @@ const CriarCampoForm = ({id} : {id : any}) => {
                 <Label >Qualidade / Cargo</Label>
                 <Textarea value={formData.qualidadeCargo} onChange={(e) => setFormData({ ...formData, qualidadeCargo: e.target.value })} />        
             </div>
-
+            <div className="flex flex-col space-y-1.5">
+                <Label >Nome secular</Label>
+                <Textarea value={formData.nomeSecular} onChange={(e) => setFormData({ ...formData, nomeSecular: e.target.value })} />        
+            </div>
+            <div className="flex flex-col space-y-1.5">
+                <Label >Nome Religioso</Label>
+                <Textarea value={formData.nomeReligioso} onChange={(e) => setFormData({ ...formData, nomeReligioso: e.target.value })} />        
+            </div>          
             <div className="flex flex-col space-y-1.5">
                 <Label >Bastarda ou Legitima</Label>
                 <Textarea value={formData.filiacao} onChange={(e) => setFormData({ ...formData, filiacao: e.target.value })} />        
@@ -127,14 +131,7 @@ const CriarCampoForm = ({id} : {id : any}) => {
                 <Label >Linhagem Familiar</Label>
                 <Textarea value={formData.linhagemFamiliar} onChange={(e) => setFormData({ ...formData, linhagemFamiliar: e.target.value })} />        
             </div>
-            <div className="flex flex-col space-y-1.5">
-                <Label >Nome secular</Label>
-                <Textarea value={formData.nomeSecular} onChange={(e) => setFormData({ ...formData, nomeSecular: e.target.value })} />        
-            </div>
-            <div className="flex flex-col space-y-1.5">
-                <Label >Nome Religioso</Label>
-                <Textarea value={formData.nomeReligioso} onChange={(e) => setFormData({ ...formData, nomeReligioso: e.target.value })} />        
-            </div>
+        
             <div className="flex flex-col space-y-1.5">
                 <Label >Idade</Label>
                 <Textarea value={formData.idade} onChange={(e) => setFormData({ ...formData, idade: e.target.value })} />        
@@ -156,25 +153,19 @@ const CriarCampoForm = ({id} : {id : any}) => {
                 <Textarea value={formData.pai} onChange={(e) => setFormData({ ...formData, pai: e.target.value })} />        
             </div>
             <div className="flex flex-col space-y-1.5">
-                <Label >Avô Paterno</Label>
-                <Textarea value={formData.avoPaterno} onChange={(e) => setFormData({ ...formData, avoPaterno: e.target.value })} />        
+                <Label >Avós Paternos</Label>
+                <Textarea value={formData.avosPaternos} onChange={(e) => setFormData({ ...formData, avosPaternos: e.target.value })} />        
             </div>
-            <div className="flex flex-col space-y-1.5">
-                <Label >Avó Paterna</Label>
-                <Textarea value={formData.avoPaterna} onChange={(e) => setFormData({ ...formData, avoPaterna: e.target.value })} />        
-            </div>            
+                 
             <div className="flex flex-col space-y-1.5">
                 <Label >Mae</Label>
                 <Textarea value={formData.mae} onChange={(e) => setFormData({ ...formData, mae: e.target.value })} />        
             </div>
             <div className="flex flex-col space-y-1.5">
-                <Label>Avô Materna</Label>
-                <Textarea value={formData.avoMaterno} onChange={(e) => setFormData({ ...formData, avoMaterno: e.target.value })} />        
+                <Label>Avós Maternos</Label>
+                <Textarea value={formData.avosMaternos} onChange={(e) => setFormData({ ...formData, avosMaternos: e.target.value })} />        
             </div>
-            <div className="flex flex-col space-y-1.5">
-                <Label >Avó Materna</Label>
-                <Textarea value={formData.avoMaterna} onChange={(e) => setFormData({ ...formData, avoMaterna: e.target.value })} />        
-            </div>
+
             <div className="flex flex-col space-y-1.5">
                 <Label >Freiras, Parentesco</Label>
                 <Textarea value={formData.freirasParentesco} onChange={(e) => setFormData({ ...formData, freirasParentesco: e.target.value })} />        
