@@ -48,6 +48,7 @@ const CriarMonja = () => {
     pagina  : '',
     nomeSecular : '',
     livroDoLivro : '', 
+    qualidadeCargo : '',
   });
 
   const handleForm = async () => {
@@ -138,9 +139,13 @@ const CriarMonja = () => {
                 <Label>Datacao da Referencia</Label>
                 <Textarea value={formData.datacaoReferencia} onChange={(e) => setFormData({ ...formData, datacaoReferencia: e.target.value })} />        
             </div>
-        <div className="flex flex-col space-y-1.5">
+          <div className="flex flex-col space-y-1.5">
                 <Label >Nome da Monja</Label>
                 <Textarea value={formData.nome} onChange={(e) => setFormData({ ...formData, nome: e.target.value })} />        
+            </div>
+            <div className="flex flex-col space-y-1.5">
+                <Label >Qualidade / Cargo</Label>
+                <Textarea value={formData.qualidadeCargo} onChange={(e) => setFormData({ ...formData, qualidadeCargo: e.target.value })} />        
             </div>
             <div className="flex flex-col space-y-1.5">
                 <Label >Bastarda ou Legitima</Label>

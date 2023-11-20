@@ -9,11 +9,10 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
-import { Monja } from "@prisma/client";
 import PageError from "./errorPage";
 
 
-const SingleMonja = ({id }: {id : any }) => {
+const SingleMonja = ({ id }: {id : any }) => {
     const { data, isLoading} = useSWR(`/api/get_campos/${id}`, fetcher);  
     const router = useRouter();
 

@@ -16,7 +16,7 @@ export async function GET() {
         const camposJson = [];
         for (const monja of monjas) {
             const camposDaMonja :  Campo[] = campos.filter(campo => campo.monjaId === monja.id);
-            let row : tabelaRow = { nome : monja.nome, id : monja.id, tempoDeNoviciado : "", avoMaterna : "", avoMaterno : "", avoPaterna : "", avoPaterno : "", dataNascimento : "", nomeReligioso : "", idade : "", irmaos : "", observacoes : "", pai : "", freirasParentesco : "", filiacao : "", linhagemFamiliar : "", mae : "", naturalidadeBatismo : "", nomeSecular : ""}
+            let row : tabelaRow = { nome : monja.nome, id : monja.id, tempoDeNoviciado : "", avoMaterna : "", avoMaterno : "", avoPaterna : "", avoPaterno : "", dataNascimento : "", nomeReligioso : "", idade : "", irmaos : "", observacoes : "", pai : "", freirasParentesco : "", filiacao : "", linhagemFamiliar : "", mae : "", naturalidadeBatismo : "", nomeSecular : "", qualidadeCargo : ""}
             camposDaMonja.forEach((campo) => {
                 campo.tempoNoviciado != "" ? row.tempoDeNoviciado += campo.tempoNoviciado + " ": ""
                 campo.avoMaterna != "" ? row.avoMaterna += campo.avoMaterna + " " : ""
@@ -35,7 +35,10 @@ export async function GET() {
                 campo.observacoes != "" ? row.observacoes += campo.observacoes + " ": ""
                 campo.pai != "" ? row.pai += campo.pai+ " " : ""
                 campo.nomeSecular != "" ? row.nomeSecular += campo.nomeSecular + " ": ""
+                campo.qualidadeCargo != "" ? row.qualidadeCargo += campo.qualidadeCargo + " ": ""
+
             });
+
             camposJson.push(row);
         }
         

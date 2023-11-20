@@ -32,6 +32,7 @@ const CriarCampoForm = ({id} : {id : any}) => {
     tempoNoviciado: '',
     naturalidadeBatismo: '',
     pai: '',
+    qualidadeCargo : "",
     avoPaterno: '',
     avoPaterna: '',
     mae: '',
@@ -112,6 +113,10 @@ const CriarCampoForm = ({id} : {id : any}) => {
           <div className="flex flex-col space-y-1.5">
                 <Label>Datacao da Referencia</Label>
                 <Textarea value={formData.datacaoReferencia} onChange={(e) => setFormData({ ...formData, datacaoReferencia: e.target.value })} />        
+            </div>
+            <div className="flex flex-col space-y-1.5">
+                <Label >Qualidade / Cargo</Label>
+                <Textarea value={formData.qualidadeCargo} onChange={(e) => setFormData({ ...formData, qualidadeCargo: e.target.value })} />        
             </div>
 
             <div className="flex flex-col space-y-1.5">

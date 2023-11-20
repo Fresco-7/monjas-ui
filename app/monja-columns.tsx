@@ -68,6 +68,10 @@ export const columns: ColumnDef<Campo>[] = [
       accessorKey: "naturalidadeBatismo",
       header: "Naturalidade / Batismo",
     },
+    {
+      accessorKey : "qualidadeCargo",
+      header : "Qualidade / Cargo"
+    },
     {   
       accessorKey: "pai",
       header: "Pai",

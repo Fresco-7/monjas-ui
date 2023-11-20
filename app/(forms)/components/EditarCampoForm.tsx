@@ -43,6 +43,7 @@ const EditarCampoForm = ({id} : {id : any}) => {
     pagina  : '',
     nomeSecular : '',
     livroDoLivro : '', 
+    qualidadeCargo : '',
   });
 
   React.useEffect(() => {
@@ -57,14 +58,14 @@ const EditarCampoForm = ({id} : {id : any}) => {
       const {
         nrFolio, datacaoReferencia, filiacao, linhagemFamiliar, nomeReligioso, idade, dataNascimento,
         tempoNoviciado, naturalidadeBatismo, pai, avoPaterno, avoPaterna, mae, avoMaterno, avoMaterna,
-        freirasParentesco, observacoes, irmaos, monjaId, pagina, livroDoLivro, nomeSecular
+        freirasParentesco, observacoes, irmaos, monjaId, pagina, livroDoLivro, nomeSecular, qualidadeCargo
       } = campo;
   
       setFormData(prevFormData => ({
         ...prevFormData,
         nrFolio, datacaoReferencia, filiacao, linhagemFamiliar, nomeReligioso, idade, dataNascimento,
         tempoNoviciado, naturalidadeBatismo, pai, avoPaterno, avoPaterna, mae, avoMaterno, avoMaterna,
-        freirasParentesco, observacoes, irmaos, monjaId, pagina, livroDoLivro, nomeSecular
+        freirasParentesco, observacoes, irmaos, monjaId, pagina, livroDoLivro, nomeSecular, qualidadeCargo
       }));
     }
 
@@ -142,7 +143,10 @@ const EditarCampoForm = ({id} : {id : any}) => {
                 <Label>Datacao da Referencia</Label>
                 <Textarea value={formData.datacaoReferencia} onChange={(e) => setFormData({ ...formData, datacaoReferencia: e.target.value })} />        
             </div>
-
+            <div className="flex flex-col space-y-1.5">
+                <Label >Qualidade / Cargo</Label>
+                <Textarea value={formData.qualidadeCargo} onChange={(e) => setFormData({ ...formData, qualidadeCargo: e.target.value })} />        
+            </div>
             <div className="flex flex-col space-y-1.5">
                 <Label >Bastarda ou Legitima</Label>
                 <Textarea value={formData.filiacao} onChange={(e) => setFormData({ ...formData, filiacao: e.target.value })} />        

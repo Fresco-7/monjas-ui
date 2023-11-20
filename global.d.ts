@@ -14,6 +14,7 @@ declare global{
         dataNascimento: string;
         tempoNoviciado: string;
         naturalidadeBatismo: string;
+        qualidadeCargo : string;
         pai: string;
         avoPaterno: string;
         avoPaterna: string;
@@ -40,6 +41,7 @@ declare global{
         tempoDeNoviciado? : string
         naturalidadeBatismo? : string
         pai? : string
+        qualidadeCargo? : string
         avoPaterno? : string
         avoPaterna? : string
         mae? : string
@@ -70,6 +72,7 @@ declare global{
         tempoDeNoviciado? : string
         naturalidadeBatismo? : string
         pai? : string
+        qualidadeCargo? : string
         avoPaterno? : string
         avoPaterna? : string
         mae? : string

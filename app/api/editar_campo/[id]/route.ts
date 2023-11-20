@@ -42,6 +42,7 @@ export async function POST(req: Request, context: any) {
                             pagina : campo.pagina,
                             nomeSecular : campo.nomeSecular,
                             livroDoLivro : campo.livroDoLivro,
+                            qualidadeCargo : campo.qualidadeCargo,
                         }
                     })
                 }catch(e){

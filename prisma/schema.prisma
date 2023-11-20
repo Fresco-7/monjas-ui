@@ -24,6 +24,7 @@ model Campo {
   dataNascimento    String
   tempoNoviciado    String
   naturalidadeBatismo String
+  qualidadeCargo String
   pai               String
   avoPaterno        String
   avoPaterna        String

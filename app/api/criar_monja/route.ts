@@ -54,6 +54,7 @@ export async function POST(req: Request) {
                 pagina : data.pagina,
                 nomeSecular : data.nomeSecular,
                 livroDoLivro : data.livroDoLivro,
+                qualidadeCargo : data.qualidadeCargo,
                 monja : {
                     connect : {
                         id : monja.id

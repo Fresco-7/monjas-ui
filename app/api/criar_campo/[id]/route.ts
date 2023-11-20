@@ -37,6 +37,7 @@ export async function POST(req: Request, context: any) {
                         pagina : data.pagina,
                         nomeSecular : data.nomeSecular,
                         livroDoLivro : data.livroDoLivro,
+                        qualidadeCargo : data.qualidadeCargo,
                         monja : {
                             connect : {
                                 id : context.params.id

@@ -64,6 +64,10 @@ export const columns: ColumnDef<tabelaRow>[] = [
       accessorKey: "naturalidadeBatismo",
       header: "Naturalidade / Batismo",
     },
+    {
+      accessorKey : "qualidadeCargo",
+      header : "Qualidade / Cargo",
+    },
     {   
       accessorKey: "pai",
       header: "Pai",

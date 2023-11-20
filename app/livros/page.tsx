@@ -21,7 +21,7 @@ export default function LivroPage (){
         </div>
       </div>
       { data && data.length > 0  ?(
-      <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2">
         {data.map((livro, index) => {
           return <LivroCard livro={livro} key={index} />
         })}
