@@ -123,40 +123,7 @@ export const columns: ColumnDef<Campo>[] = [
               <Link href={`/editar_campo/${id}`}><DropdownMenuItem>
                 Editar Campo
               </DropdownMenuItem></Link>
-              <div className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-accent pb-2">
-              <AlertDialog >
-                    <AlertDialogTrigger className="cursor-select" asChild>
-                        <span>Apagar Campo</span>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                        <AlertDialogTitle>Deseja mesmo apagar este campo?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Esta ação não pode ser revertida.
-                        </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={async () =>{
-                          try{
-                            const res = await axios.post(`/api/apagar_campo/${id}`);
-                            toast.success('Campo apagado');
-                            window.location.reload();
-                          }catch (error){
-                            if (axios.isAxiosError(error)) {
-                              const axiosError = error as AxiosError;
-                              if (axiosError.response) {
-                                const str = JSON.stringify(axiosError.response.data).replaceAll('"', '');
-                                toast.error(str);
-                              }
-                            }
-                          }
-                        }} 
-                        className="bg-red-600 text-white hover:bg-red-400">Apagar</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
-              </div>
+              
             </DropdownMenuContent>
           </DropdownMenu>
         )
