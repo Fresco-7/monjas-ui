@@ -27,7 +27,7 @@ export default function HomePage (){
         <div className="flex p-4 justify-center items-center ">
         <Link href={`/criar_monja`}><Button>Criar Monja</Button></Link>
         </div>
-          <div className="p-10">
+          <div className="p-10 grid grid-cols-1 gap-6">
             <DataTable columns={columns} data={data || []}/>
           </div>
       </>
