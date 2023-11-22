@@ -10,11 +10,13 @@ import Link from "next/link";
 import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 import PageError from "./errorPage";
+import { Livro } from "@prisma/client";
 
 
 const SingleMonja = ({ id }: {id : any }) => {
     const { data, isLoading} = useSWR(`/api/get_campos/${id}`, fetcher);  
     const router = useRouter();
+
 
     if(isLoading){
         return(
@@ -25,10 +27,30 @@ const SingleMonja = ({ id }: {id : any }) => {
     return(
         <>  
         {data.monja?
-            (<>     <div className="flex p-4 justify-center items-center">
+            (<>     
+                <div className="flex p-4 justify-center items-center">
                     <span className="font-bold text-5xl">Monja : {data.monja.nome}</span>
                 </div>
-
+                { data.livros &&(
+                        <div className="flex pt-1 justify-center items-center">
+                            <span className="font-light text-md">Fontes: {
+                                data.livros.map((livro : Livro) => (
+                                    <>
+                                        <span key={livro.id}>{livro.nome}{' '}</span>
+                                    </>
+                                ))}</span>
+                        </div>
+                    )
+                }
+                <div className="p-4 flex justify-center items-center">
+                <div className="">
+                    <Link href={`/editar_monja/${id}`}><Button>Editar Monja</Button></Link>
+                    </div>
+                    <div className="ml-3">
+                        <Link href={`/criar_campo/${id}`}><Button>Criar Campo</Button></Link>
+                    </div>
+                </div>
+            
                 <div>
                     <DataTable columns={columns} data={data.campos}></DataTable>
                 </div>

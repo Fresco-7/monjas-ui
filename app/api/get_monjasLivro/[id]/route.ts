@@ -58,7 +58,6 @@ export async function GET(req: Request, context: any) {
         return NextResponse.json(camposJson, {status : 200});
 
     }catch (error){
-        console.log(error);
         return NextResponse.json({ error: error }, { status: 404 })      
     }
 }

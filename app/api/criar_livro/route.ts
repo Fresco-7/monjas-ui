@@ -3,7 +3,6 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
     const { nome, autores, dataPub } = await req.json();
-    console.log(autores);
     try {
         const existingLivro = await prismadb.livro.findFirst({
             where : {
