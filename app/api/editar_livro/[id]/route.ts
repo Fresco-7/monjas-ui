@@ -4,7 +4,7 @@ import { Livro } from '@prisma/client';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request, context: any) {
-    const dataJson = await req.json() as Livro
+    const dataJson = await req.json()
   try{
     const existingLivro = await prismadb.livro.findFirst({
       where : {
@@ -20,7 +20,7 @@ export async function POST(req: Request, context: any) {
           data : {
             nome : dataJson.nome,
             dataPub : dataJson.dataPub,
-            autor : dataJson.autor,
+            autor : dataJson.autores,
           }
         }))
       }catch(e){
