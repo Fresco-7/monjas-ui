@@ -23,10 +23,10 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {
                         <Link href={`/editar_livro/${livro.id}`} className="mr-2"><Button className="w-16" >Editar</Button></Link>
                         <Link href={`/monjas/${livro.id}`} className="mr-2"><Button className="w-16" >Monjas</Button></Link>
                     </div>
-                <CardHeader>
-                    <CardTitle className="text-4xl flex justify-center">Nome : {livro.nome}</CardTitle>
-                    <CardTitle className="text-4xl flex justify-center">Autore(s) : {livro.autor}</CardTitle>
-                    <CardTitle className="text-4xl flex justify-center">DataPub : {livro.dataPub}</CardTitle>
+                <CardHeader className=" overflow-x-scroll">
+                    <CardTitle className="text-4xl flex justify-start">Nome : {livro.nome}</CardTitle>
+                    <CardTitle className="text-4xl flex justify-start">Autore(s) : {livro.autor}</CardTitle>
+                    <CardTitle className="text-4xl flex justify-start">DataPub : {livro.dataPub}</CardTitle>
                     </CardHeader>
                 </Card>
             </>

@@ -115,6 +115,7 @@ export const columns: ColumnDef<Campo>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Ações</DropdownMenuLabel>
+              
               <Link href={`/livro/${livroId}`}><DropdownMenuItem>
                 Ver Livro
               </DropdownMenuItem></Link>

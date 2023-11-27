@@ -11,10 +11,7 @@ import { Button } from "./ui/button";
 import { MoreHorizontal } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import axios, { AxiosError } from "axios";
-import {AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
-
 
 export function RowSelect( {monja} : {monja : Monja}) {
   const router = useRouter();
@@ -38,6 +35,7 @@ export function RowSelect( {monja} : {monja : Monja}) {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <Link href={`/monja/${monja.id}`}><DropdownMenuItem >Ver Monja</DropdownMenuItem></Link>
+              <Link href={`/relacoes/${monja.id}`}><DropdownMenuItem >Ver Relações</DropdownMenuItem></Link>
               <Link href={`/editar_monja/${monja.id}`}><DropdownMenuItem >Editar Monja</DropdownMenuItem></Link>
             </DropdownMenuContent>
           </DropdownMenu>

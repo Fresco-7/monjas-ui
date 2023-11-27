@@ -44,6 +44,7 @@ const SingleMonja = ({ id }: {id : any }) => {
                 }
                 <div className="p-4 flex justify-center items-center">
                 <div className="">
+                    <Link href={`/relacoes/${id}`} className="mr-3"><Button>Ver Relações</Button></Link>
                     <Link href={`/editar_monja/${id}`}><Button>Editar Monja</Button></Link>
                     </div>
                     <div className="ml-3">

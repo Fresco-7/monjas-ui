@@ -70,7 +70,7 @@ const EditarRelacaoForm = ( {id} : {id : any}) => {
     try{
       setIsDisabled(true);
       await axios.post('/api/editar_relacao/'+ id, {relacao, firstMonjaId, secondMonjaId, observacao});
-      toast.success('Relacao Atualizado');
+      toast.success('Relação Atualizada');
       router.push('/relacoes');
     }catch (error){
       if (axios.isAxiosError(error)) {

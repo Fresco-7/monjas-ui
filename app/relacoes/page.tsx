@@ -21,7 +21,6 @@ export default function HomePage (){
     )
   }
   if (data && data.relacoes) {
-
     data.monjas.forEach((monja: Monja) => {
       monjaById[monja.id] = monja;
     });
@@ -34,7 +33,7 @@ export default function HomePage (){
         <div className="flex p-4 justify-center items-center ">
         <Link href={`/criar_relacao`}><Button>Criar Relação</Button></Link>
         </div>
-            {data.relacoes ?(
+            {data.relacoes != null ?(
                 <>
                 <div className="p-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 ">
                   {data.relacoes.map((relacao : RelacoesFamiliares, index : any) => {
@@ -54,6 +53,7 @@ export default function HomePage (){
               )}
       </>
     )  
+
 }
 
 
