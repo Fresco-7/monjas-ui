@@ -123,7 +123,6 @@ const EditarCampoForm = ({id} : {id : any}) => {
           <span className='text-primary/80 text-xl sm:text-md'>Nenhum livro, crie um livro <Link href="/criar_livro"><span className='ml-1 text-primary/80 text-xl sm:text-md underline hover:cursor-pointer hover:text-primary'>aqui</span></Link> </span>
         </div>
       </>)}
-              
        </div>
        <div className="flex flex-col space-y-1.5">
                 <Label >Livro do Livro</Label>

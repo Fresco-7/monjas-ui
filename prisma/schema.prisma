@@ -46,5 +46,17 @@ model Campo {
 model Monja {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
   nome   String
-  campos Campo[] 
+  campos Campo[]
+  firstRelacoesFamiliares RelacoesFamiliares[] @relation(name: "FirstMonjaRelation")
+  secondRelacoesFamiliares RelacoesFamiliares[] @relation(name: "SecondMonjaRelation")
+}
+
+model RelacoesFamiliares {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  relacao String
+  observacao String
+  firstMonja        Monja     @relation(name: "FirstMonjaRelation", fields: [firstMonjaId], references: [id])
+  firstMonjaId      String    @db.ObjectId
+  secondMonja       Monja     @relation(name: "SecondMonjaRelation", fields: [secondMonjaId], references: [id])
+  secondMonjaId     String    @db.ObjectId
 }

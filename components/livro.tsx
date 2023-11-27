@@ -3,10 +3,7 @@ import { Livro } from "@prisma/client";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 
-import {AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction, AlertDialogHeader, AlertDialogFooter } from "./ui/alert-dialog";
 import Link from "next/link";
-import toast from "react-hot-toast";
-import axios, { AxiosError } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import PageError from "./errorPage";
 
@@ -23,7 +20,6 @@ const LivroCard: React.FC<LivroCardProps> = ({ livro }) => {
             <>
                 <Card>
                     <div className="flex justify-end pt-4 pr-4"> 
-                        
                         <Link href={`/editar_livro/${livro.id}`} className="mr-2"><Button className="w-16" >Editar</Button></Link>
                         <Link href={`/monjas/${livro.id}`} className="mr-2"><Button className="w-16" >Monjas</Button></Link>
                     </div>

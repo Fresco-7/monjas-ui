@@ -10,7 +10,9 @@ const Navbar = () => {
       <div className="flex w-full justify-between p-2">
         <div className="ml-5 flex items-center justify-center flex-grow"> 
         <Link href="/"><span className={pathname === "/" ? "mr-5 hover:cursor-pointer text-primary" : "mr-5 hover:cursor-pointer text-primary/60"}>Monjas</span></Link>
-        <Link href="/livros"><span className={pathname === "/livros" ? "hover:cursor-pointer text-primary" : "hover:cursor-pointer text-primary/60"}>Livros</span></Link>
+        <Link href="/livros"><span className={pathname === "/livros" ? "mr-5 hover:cursor-pointer text-primary" : "mr-5 hover:cursor-pointer text-primary/60"}>Livros</span></Link>
+        <Link href="/relacoes"><span className={pathname === "/relacoes" ? "hover:cursor-pointer text-primary" : "hover:cursor-pointer text-primary/60"}>Relacoes</span></Link>
+
         </div>
         <div className="flex items-center">
             <span><ModeToggle/></span>

@@ -1,7 +1,6 @@
 
 import { NextResponse } from 'next/server'
 import prismadb from '@/lib/prismadb';
-import { Campo, Livro } from '@prisma/client';
 export const dynamic = 'force-dynamic';
 
 
@@ -30,7 +29,7 @@ export async function GET(req: Request, context: any) {
                             uniqueIds.push(id);
                         }
                         return uniqueIds;
-                    }, []);                
+                    }, []);                 
                     if(nonNullLivrosIds != null ){
                         const livros = await prismadb.livro.findMany({
                             where : {
