@@ -21,15 +21,19 @@ export default function HomePage (){
   }
     return (
       <>
+      <div className=" overflow-x-hidden justify-center">
+
         <div className="flex p-4 justify-center items-center">
           <span className="font-bold text-5xl">Monjas</span>
         </div>
+        
         <div className="flex p-4 justify-center items-center ">
         <Link href={`/criar_monja`}><Button>Criar Monja</Button></Link>
         </div>
           <div className="p-10 grid grid-cols-1 gap-6">
             <DataTable columns={columns} data={data || []}/>
           </div>
+      </div>
       </>
     )  
 }

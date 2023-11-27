@@ -18,11 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <body className={inter.className}>
+    <body className={inter.className+" "}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <ToasterContext />
           <Navbar></Navbar>
-          {children}
+          <main className=''>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

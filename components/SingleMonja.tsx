@@ -43,13 +43,11 @@ const SingleMonja = ({ id }: {id : any }) => {
                     )
                 }
                 <div className="p-4 flex justify-center items-center">
-                <div className="">
-                    <Link href={`/relacoes/${id}`} className="mr-3"><Button>Ver Relações</Button></Link>
+                <div className="flex flex-wrap gap-3 md:flex-row md:justify-center md:items-center">
+                    <Link href={`/relacoes/${id}`}><Button>Ver Relações</Button></Link>
                     <Link href={`/editar_monja/${id}`}><Button>Editar Monja</Button></Link>
-                    </div>
-                    <div className="ml-3">
-                        <Link href={`/criar_campo/${id}`}><Button>Criar Campo</Button></Link>
-                    </div>
+                    <Link href={`/criar_campo/${id}`}><Button>Criar Campo</Button></Link>
+                </div>
                 </div>
             
                 <div>
